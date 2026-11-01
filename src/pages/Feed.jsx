@@ -6,6 +6,7 @@ import { publicUrl, removeImage, thumbUrl, uploadImage } from '../lib/storage.js
 import { useToast } from '../lib/toast.jsx'
 import { useTopBadges } from '../lib/achievements.jsx'
 import MiniBadges from '../components/MiniBadges.jsx'
+import OwnerTag from '../components/OwnerTag.jsx'
 import ReportButton from '../components/ReportButton.jsx'
 import { useMyModeration, blockedText, useIsAdmin } from '../lib/moderation.js'
 import Avatar from '../components/Avatar.jsx'
@@ -225,7 +226,7 @@ function Comments({ post, onCount }) {
               frame={c.profiles?.frame} size={30} />
             <div className="comment-body">
               <div>
-                <Link to={`/profile/${c.user_id}`}><strong>{c.profiles?.display_name ?? 'Someone'}</strong></Link>
+                <Link to={`/profile/${c.user_id}`}><strong>{c.profiles?.display_name ?? 'Someone'}</strong></Link><OwnerTag userId={c.user_id} />
                 {' '}<span className="muted small" title={new Date(c.created_at).toLocaleString()}>{timeAgo(c.created_at)}</span>
               </div>
               <span><RichText text={c.body} mentions={c.mentions} members={members} /></span>
@@ -349,6 +350,7 @@ function PostCard({ post, onChanged, onEdited, badges, names, isAdmin, focus }) 
         <Avatar name={author?.display_name} path={author?.avatar_path} color={author?.color}
           frame={author?.frame} size={40} />
         <Link to={`/profile/${post.user_id}`}>{author?.display_name ?? 'Someone'}</Link>
+        <OwnerTag userId={post.user_id} />
         <MiniBadges userId={post.user_id} list={badges?.get(post.user_id)} />
         <span className="muted small" title={new Date(post.created_at).toLocaleString()}>{timeAgo(post.created_at)}</span>
         <span className="spacer" />

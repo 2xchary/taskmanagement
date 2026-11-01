@@ -242,6 +242,7 @@ const FAKE_PEOPLE = () => [
 ]
 const rpcs = {
   is_admin: () => true,
+  owner_ids: () => [ME],
   admin_post_announcement: args => { db.announcements.unshift({ id: 'a-' + Date.now(), title: args?.head, body: args?.msg ?? '', major: !!args?.is_major, created_at: new Date().toISOString(), expires_at: null }); save(); return null },
   streak_status: args => {
     const day = args?.local_day ?? new Date().toISOString().slice(0, 10)

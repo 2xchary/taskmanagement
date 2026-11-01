@@ -5072,3 +5072,8 @@ button.feed-section-head .caret { flex: none; }
 
 /* ---- legal pages ---- */
 .legal-links { text-align: center; margin: 1rem 0 .5rem; }
+
+/* ---- the OWNER tag next to a name ---- */
+.owner-tag { display: inline-block; vertical-align: middle; margin-left: .35rem; padding: .08rem .5rem; border-radius: 999px; font: 800 .62rem/1.4 var(--font-ui, inherit); letter-spacing: .1em;
+  background: linear-gradient(135deg, #ffd35a, #ff9d2e); color: #4a2b00; box-shadow: 0 1px 4px rgba(120, 70, 0, .35); white-space: nowrap; -webkit-text-fill-color: #4a2b00; }
+h1 .owner-tag { font-size: .7rem; }
