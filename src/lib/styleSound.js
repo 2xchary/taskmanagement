@@ -119,6 +119,30 @@ const CYBER = {
   delete:       [{ freq: 700, to: 80, dur: .16, gain: .16, ...C }],
 }
 
+// Phantom: sharp square-wave stabs, fast sweeps and a punchy "snap" on every press.
+const P = { type: 'square', lp: 3400 }
+const PS = { type: 'sawtooth', lp: 3000 }
+const PHANTOM = {
+  hover:        [{ freq: 1500, dur: .02, gain: .03, ...P }],
+  press:        [{ freq: 1400, to: 300, dur: .05, gain: .2, ...P }],
+  open:         [{ freq: 300, to: 1300, dur: .1, gain: .14, ...PS }],
+  close:        [{ freq: 1300, to: 300, dur: .1, gain: .14, ...PS }],
+  check:        seq([784, 1175], .04, .06, .16, P),
+  uncheck:      [{ freq: 500, to: 250, dur: .07, gain: .16, ...P }],
+  success:      [{ freq: 523, dur: .2, gain: .1, ...P }, { freq: 659, dur: .2, gain: .1, ...P }, { freq: 784, dur: .2, gain: .1, ...P }, { freq: 1047, dur: .22, at: .09, gain: .12, ...P }],
+  celebrate:    seq([523, 659, 784, 1047, 1319, 1047, 1319, 1568], .06, .1, .13, P),
+  achievement:  [{ freq: 392, dur: .16, gain: .11, ...P }, { freq: 494, dur: .16, gain: .11, ...P }, { freq: 587, dur: .16, gain: .11, ...P }, { freq: 784, dur: .26, at: .12, gain: .13, ...P }],
+  info:         seq([880, 1175], .07, .08, .12, P),
+  notification: seq([1175, 880, 1175], .08, .08, .13, P),
+  start:        [{ freq: 250, to: 1000, dur: .16, gain: .14, ...PS }],
+  stop:         [{ freq: 1000, to: 250, dur: .16, gain: .14, ...PS }],
+  complete:     seq([523, 659, 784, 1047], .07, .12, .14, P),
+  intro:        seq([196, 262, 330, 392, 523, 659], .07, .16, .13, P),
+  error:        [{ freq: 200, dur: .1, gain: .2, ...PS, lp: 1500 }, { freq: 150, dur: .14, at: .1, gain: .2, ...PS, lp: 1500 }],
+  send:         [{ freq: 600, to: 1800, dur: .07, gain: .14, ...P }],
+  delete:       [{ freq: 900, to: 70, dur: .14, gain: .18, ...PS, lp: 2500 }],
+}
+
 // Scrap: soft paper taps, little pencil ticks and a light "ding", all warm and dry.
 const S = { type: 'triangle', lp: 2200 }
 const SCRAP = {
@@ -142,7 +166,7 @@ const SCRAP = {
   delete:       [{ freq: 420, to: 180, dur: .14, gain: .17, ...S }],
 }
 
-const PACKS = { clay: CLAY, brutal: BRUTAL, wabi: WABI, cyber: CYBER, scrap: SCRAP }
+const PACKS = { clay: CLAY, brutal: BRUTAL, wabi: WABI, cyber: CYBER, scrap: SCRAP, phantom: PHANTOM }
 export const isStylePack = id => id in PACKS
 
 export function playStyle(pack, cue, volume = .85) {

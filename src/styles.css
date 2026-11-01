@@ -4641,16 +4641,16 @@ button.feed-section-head .caret { flex: none; }
    Style packs: each has its own FLOATING side dock. No bar behind it: every button is its own object, lifted
    off the page with a strong shadow and a slow bob, and shaped for the pack. (PC dock; on a phone see the bottom bar below.)
    ===================================================================== */
-:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap']) .dock {
+:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap'], :root[data-theme='phantom']) .dock {
   background: none; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding: .4rem; gap: 1.05rem; overflow: visible;
 }
-:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap']) .dock a {
+:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap'], :root[data-theme='phantom']) .dock a {
   transform-origin: 50% 50%; opacity: 1; animation: dock-float 3.8s ease-in-out infinite alternate;
 }
-:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap']) .dock a:nth-child(2) { animation-duration: 4.6s; animation-delay: -1.2s; }
-:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap']) .dock a:nth-child(3) { animation-duration: 3.5s; animation-delay: -2.1s; }
-:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap']) .dock a:nth-child(4) { animation-duration: 4.2s; animation-delay: -.5s; }
-:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap']) .dock a:nth-child(5) { animation-duration: 5s; animation-delay: -2.9s; }
+:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap'], :root[data-theme='phantom']) .dock a:nth-child(2) { animation-duration: 4.6s; animation-delay: -1.2s; }
+:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap'], :root[data-theme='phantom']) .dock a:nth-child(3) { animation-duration: 3.5s; animation-delay: -2.1s; }
+:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap'], :root[data-theme='phantom']) .dock a:nth-child(4) { animation-duration: 4.2s; animation-delay: -.5s; }
+:is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap'], :root[data-theme='phantom']) .dock a:nth-child(5) { animation-duration: 5s; animation-delay: -2.9s; }
 @keyframes dock-float { from { transform: translateY(0); } to { transform: translateY(-5px); } }
 @media (prefers-reduced-motion: reduce) { .dock a { animation: none !important; } }
 :root[data-motion='reduced'] .dock a { animation: none !important; }
@@ -4751,9 +4751,9 @@ button.feed-section-head .caret { flex: none; }
 
 /* ---- Phone bottom bars ---- */
 @media (max-width: 700px) {
-  :is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap']) .tabbar .liquid { display: none; }
-  :is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap']) .tabbar a { text-shadow: none; }
-  :is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap']) .tabbar a .icon { filter: none; }
+  :is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap'], :root[data-theme='phantom']) .tabbar .liquid { display: none; }
+  :is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap'], :root[data-theme='phantom']) .tabbar a { text-shadow: none; }
+  :is(:root[data-theme='clay'], :root[data-theme='brutal'], :root[data-theme='wabi'], :root[data-theme='cyber'], :root[data-theme='scrap'], :root[data-theme='phantom']) .tabbar a .icon { filter: none; }
 
   :root[data-theme='clay'] .tabbar { background: #fdf0ee; border: 0; border-radius: 36px; -webkit-backdrop-filter: none; backdrop-filter: none;
     box-shadow: 8px 10px 20px rgba(190, 125, 125, .3), -6px -6px 14px rgba(255, 255, 255, .95), inset 2px 3px 5px rgba(255, 255, 255, .95), inset -3px -4px 8px rgba(205, 140, 140, .18); }
@@ -5077,3 +5077,98 @@ button.feed-section-head .caret { flex: none; }
 .owner-tag { display: inline-block; vertical-align: middle; margin-left: .35rem; padding: .08rem .5rem; border-radius: 999px; font: 800 .62rem/1.4 var(--font-ui, inherit); letter-spacing: .1em;
   background: linear-gradient(135deg, #ffd35a, #ff9d2e); color: #4a2b00; box-shadow: 0 1px 4px rgba(120, 70, 0, .35); white-space: nowrap; -webkit-text-fill-color: #4a2b00; }
 h1 .owner-tag { font-size: .7rem; }
+
+/* ---- Phantom Heist: red, black and white. Black dialogue-box cards, white name-tag titles, slanted blocks ----------- */
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) {
+  color-scheme: dark;
+  --text: #ffffff; --muted: #d4d4dc; --accent: #e60012; --accent-2: #ffffff; --on-accent: #ffffff; --danger: #ffd400;
+  --glass: #0e0e10; --glass-inner: #25090c; --glass-field: #ffffff; --glass-strong: #0e0e10; --glass-line: #ffffff;
+  --glass-shadow: none;
+  --blur: 0px; --r: 3px; --sky-1: #e60012; --sky-2: #8f000b;
+  --font: 'Rubik', system-ui, sans-serif; --font-head: 'Lilita One', 'Rubik', system-ui, sans-serif; --head-weight: 400; --head-scale: 1.04;
+  --card-shape: 3px; --tile-shape: 3px; --btn-shape: 2px; --field-shape: 2px; --dock-shape: 3px;
+}
+:root[data-theme='phantom'] .scene { background:
+  radial-gradient(rgba(0, 0, 0, .3) 1.6px, transparent 2.2px) 0 0 / 15px 15px,
+  linear-gradient(112deg, transparent 0 56%, #0a0a0a 56% 72%, transparent 72% 75%, #ffffff 75% 76.5%, transparent 76.5%),
+  linear-gradient(-66deg, #0a0a0a 0 10%, transparent 10% 11.5%, #ffffff 11.5% 12.5%, transparent 12.5%),
+  #e60012; }
+:root[data-theme='phantom'] .scene::before { content: ''; position: absolute; left: -8%; right: -8%; bottom: -7vh; height: 22vh; background: #0a0a0a; transform: rotate(-3deg); box-shadow: 0 -7px 0 #ffffff; }
+:root[data-theme='phantom'] .scene::after { content: none; }
+:root[data-theme='phantom'] .scene .g1, :root[data-theme='phantom'] .scene .g2, :root[data-theme='phantom'] .scene span { display: none; }
+:root[data-theme='phantom'] :is(.card, .profile-head) {
+  position: relative; isolation: isolate; border: 0; border-radius: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+  background: linear-gradient(225deg, #ffffff 0 22px, transparent 22.5px);
+}
+:root[data-theme='phantom'] :is(.card, .profile-head)::before, :root[data-theme='phantom'] :is(.card, .profile-head)::after { content: ''; position: absolute; inset: -6px -10px -8px -10px; z-index: -1; pointer-events: none; clip-path: polygon(1% 7%, 99% 0, 100% 24%, 97.5% 100%, 7% 96%, 0 100%, 2% 78%); }
+:root[data-theme='phantom'] :is(.card, .profile-head)::before { background: rgba(0, 0, 0, .42); translate: 9px 10px; }
+:root[data-theme='phantom'] :is(.card, .profile-head)::after { background: #0e0e10; }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) h1 { text-transform: uppercase; letter-spacing: .02em; text-shadow: 3px 3px 0 #e60012; }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) h2 { display: inline-block; text-transform: uppercase; letter-spacing: .03em; background: #ffffff; color: #0a0a0a; padding: .06em .65em .1em .8em; rotate: -1.5deg;
+  clip-path: polygon(0 62%, 7% 0, 100% 0, 96% 100%, 5% 100%); }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) h3 { text-transform: uppercase; letter-spacing: .03em; border-left: 6px solid #e60012; padding-left: .5rem; }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) button:not(.link):not(.secondary):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab) {
+  background: #e60012; color: #ffffff; border: 2px solid #ffffff; border-radius: 2px; text-transform: uppercase; letter-spacing: .05em; font-weight: 800;
+  transform: skewX(-8deg); box-shadow: 4px 4px 0 #0a0a0a; filter: none;
+}
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) button:not(.link):not(.secondary):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab):hover:not(:disabled) { filter: none; background: #ffffff; color: #e60012; }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) button.secondary { background: #0a0a0a; color: #ffffff; border: 2px solid #ffffff; border-radius: 2px; text-transform: uppercase; letter-spacing: .05em; font-weight: 800; transform: skewX(-8deg); box-shadow: 4px 4px 0 #e60012; }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) button.secondary:hover:not(:disabled) { background: #ffffff; color: #0a0a0a; filter: none; }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) button:active:not(:disabled) { translate: 3px 3px; box-shadow: 0 0 0 #0a0a0a; }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) input:not([type='checkbox']):not([type='radio']):not([type='file']), :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) textarea, :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) select {
+  background: #ffffff; color: #0a0a0a; border: 2px solid #ffffff; border-radius: 2px; box-shadow: 3px 3px 0 #e60012;
+}
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) input::placeholder, :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) textarea::placeholder { color: #666670; }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) input:focus, :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) textarea:focus, :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) select:focus { border-color: #e60012; box-shadow: 3px 3px 0 #0a0a0a, 0 0 0 3px #e60012; }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) input[type='checkbox'], :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) input[type='radio'] { accent-color: #e60012; }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) .me-plate, :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) .timer-chip { border: 2px solid #ffffff; background: #0a0a0a; color: #ffffff; border-radius: 2px; box-shadow: 3px 3px 0 #e60012; }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) .timer-chip { background: #e60012; color: #ffffff !important; }
+
+/* the miniature keeps the pack's own look even when another pack is the page's look */
+.sp.sp[data-pack='phantom'] {
+  color-scheme: dark;
+  --text: #ffffff; --muted: #d4d4dc; --accent: #e60012; --accent-2: #ffffff; --on-accent: #ffffff; --danger: #ffd400;
+  --glass: #0e0e10; --glass-inner: #25090c; --glass-field: #ffffff; --glass-strong: #0e0e10; --glass-line: #ffffff;
+  --glass-shadow: none;
+  --blur: 0px; --r: 3px; --sky-1: #e60012; --sky-2: #8f000b;
+  --font: 'Rubik', system-ui, sans-serif; --font-head: 'Lilita One', 'Rubik', system-ui, sans-serif; --head-weight: 400; --head-scale: 1.04;
+  --card-shape: 3px; --tile-shape: 3px; --btn-shape: 2px; --field-shape: 2px; --dock-shape: 3px;
+}
+.sp.sp[data-pack='phantom'] .card {
+  position: relative; isolation: isolate; border: 0; border-radius: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+  background: linear-gradient(225deg, #ffffff 0 22px, transparent 22.5px);
+}
+.sp.sp[data-pack='phantom'] .card::before, .sp.sp[data-pack='phantom'] .card::after { content: ''; position: absolute; inset: -6px -10px -8px -10px; z-index: -1; pointer-events: none; clip-path: polygon(1% 7%, 99% 0, 100% 24%, 97.5% 100%, 7% 96%, 0 100%, 2% 78%); }
+.sp.sp[data-pack='phantom'] .card::before { background: rgba(0, 0, 0, .42); translate: 9px 10px; }
+.sp.sp[data-pack='phantom'] .card::after { background: #0e0e10; }
+.sp.sp[data-pack='phantom'] h2, .sp.sp[data-pack='phantom'] h3 { display: inline-block; text-transform: uppercase; letter-spacing: .03em; background: #ffffff; color: #0a0a0a; padding: .06em .65em .1em .8em; rotate: -1.5deg;
+  clip-path: polygon(0 62%, 7% 0, 100% 0, 96% 100%, 5% 100%); border-left: 0; }
+.sp.sp[data-pack='phantom'] button:not(.link):not(.secondary):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab) { background: #e60012; color: #ffffff; border: 2px solid #ffffff; border-radius: 2px; text-transform: uppercase; letter-spacing: .05em; font-weight: 800; transform: skewX(-8deg); box-shadow: 4px 4px 0 #0a0a0a; filter: none; }
+.sp.sp[data-pack='phantom'] button.secondary { background: #0a0a0a; color: #ffffff; border: 2px solid #ffffff; border-radius: 2px; text-transform: uppercase; font-weight: 800; transform: skewX(-8deg); box-shadow: 4px 4px 0 #e60012; }
+.sp.sp[data-pack='phantom'] input:not([type='checkbox']):not([type='radio']):not([type='file']) { background: #ffffff; color: #0a0a0a; border: 2px solid #ffffff; border-radius: 2px; box-shadow: 3px 3px 0 #e60012; }
+.sp.sp[data-pack='phantom'] .me-plate, .sp.sp[data-pack='phantom'] .timer-chip { border: 2px solid #ffffff; border-radius: 2px; }
+
+/* ---- Phantom dock: slanted red blocks with a white edge, hanging at alternating angles ---- */
+:root[data-theme='phantom'] .dock a {
+  width: 56px; height: 52px; border-radius: 2px; color: #ffffff; border: 3px solid #ffffff; background: #e60012; box-shadow: 6px 6px 0 #0a0a0a; rotate: -7deg;
+}
+:root[data-theme='phantom'] .dock a:nth-child(even) { rotate: 5deg; background: #0a0a0a; }
+:root[data-theme='phantom'] .dock a .icon { stroke-width: 2.6; }
+:root[data-theme='phantom'] .dock a:hover, :root[data-theme='phantom'] .dock a:focus-visible { scale: 1; translate: -3px -3px; rotate: 0deg; box-shadow: 9px 9px 0 #0a0a0a; }
+:root[data-theme='phantom'] .dock a:hover + a, :root[data-theme='phantom'] .dock a:has(+ a:hover), :root[data-theme='phantom'] .dock a:hover + a + a, :root[data-theme='phantom'] .dock a:has(+ a + a:hover),
+:root[data-theme='phantom'] .dock a:focus-visible + a, :root[data-theme='phantom'] .dock a:has(+ a:focus-visible) { scale: 1; translate: 0 0; }
+:root[data-theme='phantom'] .dock a:active { translate: 4px 4px; box-shadow: 2px 2px 0 #0a0a0a; }
+:root[data-theme='phantom'] .dock a.active { background: #ffffff; color: #e60012; border-color: #0a0a0a; box-shadow: 6px 6px 0 #e60012, 6px 6px 0 3px #0a0a0a; rotate: 0deg; }
+:root[data-theme='phantom'] .dock a.active::before { display: none; }
+:root[data-theme='phantom'] .dock a::after { border: 3px solid #ffffff; border-radius: 2px; background: #e60012; color: #ffffff; font-weight: 800; text-transform: uppercase; box-shadow: 4px 4px 0 #0a0a0a; }
+@media (max-width: 700px) {
+  :root[data-theme='phantom'] .tabbar .liquid { display: none; }
+  :root[data-theme='phantom'] .tabbar a { text-shadow: none; }
+  :root[data-theme='phantom'] .tabbar a .icon { filter: none; }
+  :root[data-theme='phantom'] .tabbar { background: #0a0a0a; border: 3px solid #ffffff; border-top: 5px solid #e60012; border-radius: 3px; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: 5px 5px 0 #e60012; }
+  :root[data-theme='phantom'] .tabbar a { color: #ffffff; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; font-size: .6rem; }
+  :root[data-theme='phantom'] .tabbar a.active { background: #e60012; color: #ffffff; border: 2px solid #ffffff; border-radius: 2px; margin: 6px 3px; height: 54px; padding-top: 6px; rotate: -3deg; box-shadow: 3px 3px 0 #0a0a0a; }
+}
+:root[data-theme='phantom'] h2 :is(.muted, small, span), .sp.sp[data-pack='phantom'] h2 :is(.muted, small, span) { color: #55555f; text-shadow: none; }
+:root[data-theme='phantom'] .modal.card { position: relative; isolation: auto; background: #0e0e10; border: 3px solid #ffffff; box-shadow: 7px 7px 0 #e60012; }
+:root[data-theme='phantom'] .modal.card::before, :root[data-theme='phantom'] .modal.card::after { content: none; }

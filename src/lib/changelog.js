@@ -3,6 +3,12 @@
 // { version, date: 'YYYY-MM-DD', title, points: [short bullet, ...] }
 export const CHANGELOG = [
   {
+    version: '2.55', date: '2026-11-01', title: 'Phantom Heist style pack',
+    points: [
+      'A new Style pack in the Shop, 700 coins: red, black and white with black dialogue-box cards, white name-tag titles and a slanted dock, plus its own sharp sound pack.',
+    ],
+  },
+  {
     version: '2.54', date: '2026-10-31', title: 'Terms and privacy',
     points: [
       'Two short pages in plain language: the Terms of Service and the Privacy Policy. Find them under Settings, Help, and on the sign-up form.',

@@ -3,7 +3,7 @@
 // still shows its palette.
 const pictures = import.meta.glob('../assets/theme-previews/*.{jpg,png}', { eager: true, query: '?url', import: 'default' })
 
-const STYLE_PACKS = ['clay', 'brutal', 'wabi', 'cyber', 'scrap']
+const STYLE_PACKS = ['clay', 'brutal', 'wabi', 'cyber', 'scrap', 'phantom']
 
 // A Style pack is more than colours, so it gets a miniature of the app drawn with its real box, button and field styles.
 function StylePackPreview({ id, colors }) {

@@ -351,6 +351,14 @@
    "exclusive": false
   },
   {
+   "id": "phantom",
+   "kind": "theme",
+   "name": "Phantom Heist",
+   "price": 700,
+   "sort": 27,
+   "exclusive": false
+  },
+  {
    "id": "scrap",
    "kind": "theme",
    "name": "Scrapbook",
