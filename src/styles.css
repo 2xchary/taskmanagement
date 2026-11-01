@@ -5107,13 +5107,13 @@ h1 .owner-tag { font-size: .7rem; }
   position: relative; isolation: isolate; border: 0; border-radius: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none;
   background: linear-gradient(225deg, #e60012 0 22px, transparent 22.5px);
 }
-:root[data-theme='phantom'] :is(.card, .profile-head)::before, :root[data-theme='phantom'] :is(.card, .profile-head)::after { content: ''; position: absolute; inset: -6px -10px -8px -10px; z-index: -1; pointer-events: none; clip-path: polygon(1% 7%, 99% 0, 100% 24%, 97.5% 100%, 7% 96%, 0 100%, 2% 78%); }
+:root[data-theme='phantom'] :is(.card, .profile-head)::before, :root[data-theme='phantom'] :is(.card, .profile-head)::after { content: ''; position: absolute; inset: -6px -10px -8px -10px; z-index: -1; pointer-events: none; clip-path: polygon(0 9px, 100% 0, 100% calc(100% - 5px), 97% 100%, 22px calc(100% - 8px), 0 100%, 7px calc(100% - 24px)); }
 :root[data-theme='phantom'] :is(.card, .profile-head)::before { background: #0a0a0a; translate: 9px 10px; }
 :root[data-theme='phantom'] :is(.card, .profile-head)::after { background: #ffffff; }
 :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) h1 { color: #ffffff; text-transform: uppercase; letter-spacing: .02em; text-shadow: 3px 3px 0 #0a0a0a; }
 :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) :is(.card, .profile-head) h1 { text-shadow: none; }
-:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) h2 { display: inline-block; text-transform: uppercase; letter-spacing: .03em; background: #0a0a0a; color: #ffffff; padding: .06em .65em .1em .8em; rotate: -1.5deg;
-  clip-path: polygon(0 62%, 7% 0, 100% 0, 96% 100%, 5% 100%); }
+:is(:root[data-theme='phantom'], .sp[data-pack='phantom']) h2 { display: inline-block; text-transform: uppercase; letter-spacing: .03em; background: #0a0a0a; color: #ffffff; padding: .06em .75em .1em 1.4em; rotate: -1.5deg;
+  clip-path: polygon(0 60%, .9em 0, 100% 0, calc(100% - .4em) 100%, .7em 100%); }
 :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) h2 :is(.muted, small, span) { color: #d8d8e0; text-shadow: none; }
 :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) h3 { text-transform: uppercase; letter-spacing: .03em; border-left: 6px solid #e60012; padding-left: .5rem; }
 
@@ -5166,11 +5166,11 @@ h1 .owner-tag { font-size: .7rem; }
   position: relative; isolation: isolate; border: 0; border-radius: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none;
   background: linear-gradient(225deg, #e60012 0 22px, transparent 22.5px);
 }
-.sp.sp[data-pack='phantom'] .card::before, .sp.sp[data-pack='phantom'] .card::after { content: ''; position: absolute; inset: -6px -10px -8px -10px; z-index: -1; pointer-events: none; clip-path: polygon(1% 7%, 99% 0, 100% 24%, 97.5% 100%, 7% 96%, 0 100%, 2% 78%); }
+.sp.sp[data-pack='phantom'] .card::before, .sp.sp[data-pack='phantom'] .card::after { content: ''; position: absolute; inset: -6px -10px -8px -10px; z-index: -1; pointer-events: none; clip-path: polygon(0 9px, 100% 0, 100% calc(100% - 5px), 97% 100%, 22px calc(100% - 8px), 0 100%, 7px calc(100% - 24px)); }
 .sp.sp[data-pack='phantom'] .card::before { background: #0a0a0a; translate: 9px 10px; }
 .sp.sp[data-pack='phantom'] .card::after { background: #ffffff; }
-.sp.sp[data-pack='phantom'] h2, .sp.sp[data-pack='phantom'] h3 { display: inline-block; text-transform: uppercase; letter-spacing: .03em; background: #0a0a0a; color: #ffffff; padding: .06em .65em .1em .8em; rotate: -1.5deg;
-  clip-path: polygon(0 62%, 7% 0, 100% 0, 96% 100%, 5% 100%); border-left: 0; }
+.sp.sp[data-pack='phantom'] h2, .sp.sp[data-pack='phantom'] h3 { display: inline-block; text-transform: uppercase; letter-spacing: .03em; background: #0a0a0a; color: #ffffff; padding: .06em .75em .1em 1.4em; rotate: -1.5deg;
+  clip-path: polygon(0 60%, .9em 0, 100% 0, calc(100% - .4em) 100%, .7em 100%); border-left: 0; }
 .sp.sp[data-pack='phantom'] button:not(.link):not(.secondary):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab):not(.settings-btn):not(.mail-btn):not(.help-btn):not(.swatch) {
   position: relative; isolation: isolate; background: transparent; border: 0; border-radius: 0; box-shadow: none; filter: none; transform: none;
   color: #ffffff; text-transform: uppercase; letter-spacing: .05em; font-weight: 800; padding-bottom: calc(.55em + 8px); margin-bottom: 4px;
@@ -5221,3 +5221,6 @@ h1 .owner-tag { font-size: .7rem; }
 }
 :root[data-theme='phantom'] :is(.settings-btn, .mail-btn, .help-btn) { background: #ffffff; color: #0a0a0a; border: 2px solid #0a0a0a; border-radius: 2px; box-shadow: 3px 3px 0 #0a0a0a; rotate: -4deg; }
 :root[data-theme='phantom'] :is(.settings-btn, .mail-btn, .help-btn):hover { background: #0a0a0a; color: #ffffff; }
+/* the profile card has a banner picture across its top edge, so its slab stays square at the top */
+:root[data-theme='phantom'] .profile-head::before, :root[data-theme='phantom'] .profile-head::after { inset: 0 -10px -8px -10px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5px), 97% 100%, 22px calc(100% - 8px), 0 100%); }
+:root[data-theme='phantom'] .profile-head::before { translate: 9px 10px; }
