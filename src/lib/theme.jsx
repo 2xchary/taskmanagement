@@ -58,8 +58,8 @@ export const THEMES = [
     preview: ['#07080f', '#101426', '#00e5ff', '#ff2bd6', '#eaf6ff'] },
   { id: 'scrap', name: 'Scrapbook', style: true, music: 'coffee', blurb: 'Kraft paper, taped notes and handwritten titles, with soft paper sounds and easy coffee-shop music.',
     preview: ['#efe2c8', '#fff8e6', '#ffd966', '#e8735a', '#5a4632'] },
-  { id: 'phantom', name: 'Phantom Heist', style: true, music: 'lofi', blurb: 'Red, black and white heist style: slanted black dialogue-box cards, white name-tag titles and a slanted dock, with sharp stab sounds and a slow beat.',
-    preview: ['#e60012', '#0e0e10', '#ffffff', '#8f000b', '#ffd400'] },
+  { id: 'phantom', name: 'Phantom Heist', style: true, music: 'lofi', blurb: 'Red, white and black heist style: white dialogue-box cards, bubble buttons and name-tag titles over a moving red background, with sharp stab sounds and a slow beat.',
+    preview: ['#e60012', '#ffffff', '#0a0a0a', '#a8000d', '#ffe3e6'] },
   { id: 'twilight', name: 'Twilight Sky', blurb: 'Blush clouds and a crescent moon over indigo mountains and stars.',
     preview: ['#fff1f1', '#a9b4dc', '#7885c6', '#2c3470', '#161b45'] },
 ]

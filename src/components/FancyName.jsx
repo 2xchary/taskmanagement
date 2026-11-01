@@ -15,7 +15,7 @@ const FONTS = [
   "'Lora', serif",
   "'Quicksand', sans-serif",
 ]
-const DARK_LOOKS = new Set(['dark', 'arcade', 'meadow', 'cyber', 'phantom'])   // themes whose cards are dark
+const DARK_LOOKS = new Set(['dark', 'arcade', 'meadow', 'cyber'])   // themes whose cards are dark
 
 function hash(s) {
   let h = 2166136261
@@ -46,7 +46,7 @@ const ACCENTS = {
   clay:       [[345, 70], [215, 65], [20, 80], [265, 50]],
   brutal:     [[340, 90], [215, 90], [165, 80], [270, 80]],
   cyber:      [[185, 100], [315, 95], [160, 90], [265, 85]],
-  phantom:    [[0, 92], [48, 100], [0, 0], [350, 85]],
+  phantom:    [[0, 92], [350, 85], [0, 0], [340, 80]],
   scrap:      [[12, 65], [35, 70], [95, 35], [200, 40]],
   wabi:       [[5, 55], [30, 35], [95, 25], [210, 20]],
   golden:     [[38, 80], [28, 75], [45, 85], [18, 70]],
