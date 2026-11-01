@@ -152,6 +152,8 @@ export default function SettingsMenu() {
             <div className="row">
               <button type="button" className="secondary" onClick={() => { setOpen(false); replayTour() }}>Replay the welcome tour</button>
               <Link to="/terms" onClick={() => setOpen(false)}><button type="button" className="secondary">Community rules</button></Link>
+              <Link to="/terms-of-service" onClick={() => setOpen(false)}><button type="button" className="secondary">Terms of Service</button></Link>
+              <Link to="/privacy" onClick={() => setOpen(false)}><button type="button" className="secondary">Privacy Policy</button></Link>
               {isAdmin && <Link to="/admin" onClick={() => setOpen(false)}><button type="button">Admin dashboard</button></Link>}
             </div>
           </section>

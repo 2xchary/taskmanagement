@@ -24,6 +24,7 @@ export default function Terms() {
         <button type="button" className="secondary" onClick={back}>← Back</button>
         <Link to="/" className="small">Back to LOCK IN</Link>
       </div>
+      <p className="small legal-links"><Link to="/terms-of-service">Terms of Service</Link> · <Link to="/privacy">Privacy Policy</Link></p>
     </div>
   )
 }

@@ -5069,3 +5069,6 @@ button.feed-section-head .caret { flex: none; }
 .banner-pic { background-image: var(--pic) !important; background-size: cover !important; background-position: center !important; }
 .banner-pic-row { display: grid; gap: .4rem; padding: .7rem .8rem; border-radius: var(--r-sm); background: var(--glass-inner); border: 1px solid var(--glass-line); }
 .banner-pic-row input[type='file'] { max-width: 100%; }
+
+/* ---- legal pages ---- */
+.legal-links { text-align: center; margin: 1rem 0 .5rem; }

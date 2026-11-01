@@ -14,6 +14,7 @@ import Profile from './pages/Profile.jsx'
 import Shop from './pages/Shop.jsx'
 import Achievements from './pages/Achievements.jsx'
 import Terms from './pages/Terms.jsx'
+import Legal from './pages/Legal.jsx'
 import Admin from './pages/Admin.jsx'
 import TermsGate from './components/TermsGate.jsx'
 import MailButton from './components/MailButton.jsx'
@@ -205,6 +206,8 @@ export default function App() {
             <Route path="/shop" element={<RequireAuth><Shop /></RequireAuth>} />
             <Route path="/achievements" element={<RequireAuth><Achievements /></RequireAuth>} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/terms-of-service" element={<Legal page="tos" />} />
+            <Route path="/privacy" element={<Legal page="privacy" />} />
             <Route path="/admin" element={<RequireAuth><Admin /></RequireAuth>} />
             <Route path="/achievements/:id" element={<RequireAuth><Achievements /></RequireAuth>} />
             <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />

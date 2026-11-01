@@ -3,6 +3,12 @@
 // { version, date: 'YYYY-MM-DD', title, points: [short bullet, ...] }
 export const CHANGELOG = [
   {
+    version: '2.54', date: '2026-10-31', title: 'Terms and privacy',
+    points: [
+      'Two short pages in plain language: the Terms of Service and the Privacy Policy. Find them under Settings, Help, and on the sign-up form.',
+    ],
+  },
+  {
     version: '2.53', date: '2026-10-26', title: 'Animated banners',
     points: [
       'A new Shop perk, Animated banner (GIF), 500 coins: put your own picture or an animated GIF across your profile banner. It also shows behind your name in the top bar. Add it on your profile under Style.',
