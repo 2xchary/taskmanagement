@@ -5268,6 +5268,11 @@ button.feed-section-head .caret { flex: none; }
 :root[data-theme='nostalgic'] .scene { background: radial-gradient(circle at 50% 34%, #ffffff, var(--nm-bg2) 62%, var(--nm-bg3) 100%); }
 :root[data-theme='nostalgic'] .scene .g1, :root[data-theme='nostalgic'] .scene .g2 { display: none; }
 :root[data-theme='nostalgic'] .scene { perspective: 1100px; perspective-origin: 50% 38%; }
+/* a faint grid of lines (in the chosen colour) that drifts one square at a time, behind the shapes */
+:root[data-theme='nostalgic'] .scene::before { content: ''; position: absolute; inset: -64px; pointer-events: none;
+  background-image: linear-gradient(to right, color-mix(in srgb, var(--nm-s1) 22%, transparent) 1.5px, transparent 1.5px), linear-gradient(to bottom, color-mix(in srgb, var(--nm-s1) 22%, transparent) 1.5px, transparent 1.5px);
+  background-size: 64px 64px; animation: nm-grid 26s linear infinite; }
+@keyframes nm-grid { to { transform: translate(64px, 64px); } }
 /* each shape is a small stack of three layers (the sides get darker towards the back) that tumbles through 3D space */
 :root[data-theme='nostalgic'] .scene span {
   --c: var(--nm-s1); --s: 84px;
@@ -5292,9 +5297,9 @@ button.feed-section-head .caret { flex: none; }
   from { transform: translate3d(0, 0, 0) rotateX(var(--rx0)) rotateY(var(--ry0)) rotateZ(0deg); }
   to { transform: translate3d(var(--dx), var(--dy), var(--dz)) rotateX(var(--rx1)) rotateY(var(--ry1)) rotateZ(var(--rz)); }
 }
-@media (prefers-reduced-motion: reduce) { :root[data-theme='nostalgic'] .scene span { animation: none; transform: rotateX(var(--rx0)) rotateY(var(--ry0)); } :root[data-theme='nostalgic'] .page > * { animation: none; } :root[data-theme='nostalgic'] .dock, :root[data-theme='nostalgic'] .dock a .i3d { animation: none; } }
+@media (prefers-reduced-motion: reduce) { :root[data-theme='nostalgic'] .scene span { animation: none; transform: rotateX(var(--rx0)) rotateY(var(--ry0)); } :root[data-theme='nostalgic'] .page > * { animation: none; } :root[data-theme='nostalgic'] .dock, :root[data-theme='nostalgic'] .dock a .i3d, :root[data-theme='nostalgic'] .scene::before { animation: none; } }
 :root[data-theme='nostalgic'][data-motion='reduced'] .scene span { animation: none; transform: rotateX(var(--rx0)) rotateY(var(--ry0)); }
-:root[data-theme='nostalgic'][data-motion='reduced'] .page > *, :root[data-theme='nostalgic'][data-motion='reduced'] .dock, :root[data-theme='nostalgic'][data-motion='reduced'] .dock a .i3d { animation: none; }
+:root[data-theme='nostalgic'][data-motion='reduced'] .page > *, :root[data-theme='nostalgic'][data-motion='reduced'] .scene::before, :root[data-theme='nostalgic'][data-motion='reduced'] .dock, :root[data-theme='nostalgic'][data-motion='reduced'] .dock a .i3d { animation: none; }
 /* screens ease in */
 :root[data-theme='nostalgic'] .page > * { animation: nm-enter .45s cubic-bezier(.34, 1.5, .5, 1) backwards; }
 @keyframes nm-enter { from { opacity: 0; transform: translateY(18px) scale(.985); } }
