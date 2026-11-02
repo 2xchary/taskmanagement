@@ -12,3 +12,17 @@ dist
 # Sound library workspace (the package is installed in the project itself)
 SFX/
 dist-wip
+
+# Extra safety: never commit keys, certificates, other env files (the templates .env.example/.admin/.basic/.intro/.wip are already tracked and hold no secrets), or OS junk
+.env.*.local
+.env.production*
+.env.development*
+*.pem
+*.key
+*.p12
+service-account*.json
+.DS_Store
+Thumbs.db
+
+# A stray copy of an old starter project that the desktop app dropped in here
+friends-site/
