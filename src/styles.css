@@ -5256,7 +5256,7 @@ button.feed-section-head .caret { flex: none; }
   color-scheme: light;
   --text: #1f2d3d; --muted: #5b6b7c; --accent: #1a6db8; --accent-2: #0e7f86; --on-accent: #ffffff; --danger: #b3261e;
   --edge: #6f89a6;
-  --glass: rgba(255, 255, 255, .78); --glass-inner: #eef4fa; --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(111, 137, 166, .32);
+  --glass: rgba(255, 255, 255, .58); --glass-inner: rgba(236, 244, 251, .6); --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(111, 137, 166, .32);
   --glass-shadow: 0 10px 34px rgba(60, 100, 150, .14);
   --blur: 0px; --r: 20px; --sky-1: #cfe3f5; --sky-2: #eaf1f8;
   --font: 'Nunito', system-ui, sans-serif; --font-head: 'Nunito', system-ui, sans-serif; --head-weight: 900; --head-scale: 1;
@@ -5267,22 +5267,22 @@ button.feed-section-head .caret { flex: none; }
 :root[data-theme='nostalgic'][data-screen='feed'], :root[data-theme='nostalgic'][data-screen='shop'] { --accent: #17703a; --accent-2: #0e7f86; }
 
 /* ---- the page: soft white-to-sky glow with 12 faint shapes drifting slowly (transform and opacity only) ---- */
-:root[data-theme='nostalgic'] .scene { background: radial-gradient(circle at 50% 36%, #ffffff, #eaf1f8 80%); }
+:root[data-theme='nostalgic'] .scene { background: radial-gradient(circle at 50% 34%, #ffffff, #e4eef9 62%, #cde0f3 100%); }
 :root[data-theme='nostalgic'] .scene .g1, :root[data-theme='nostalgic'] .scene .g2 { display: none; }
 :root[data-theme='nostalgic'] .scene span:nth-of-type(n+13) { display: none; }
 :root[data-theme='nostalgic'] .scene span {
-  --c: #1a6db8; --s: 70px; --dx: 5vw; --dy: -6vh; --rot: 40deg;
-  left: var(--x); top: var(--y); width: var(--s); height: var(--s); opacity: .5; filter: blur(3px);
-  background: color-mix(in srgb, var(--c) 20%, transparent); border: 0; border-radius: 0; box-shadow: none;
+  --c: #4f95d6; --s: 110px; --dx: 5vw; --dy: -6vh; --rot: 40deg;
+  left: var(--x); top: var(--y); width: var(--s); height: var(--s); opacity: .85; filter: blur(3px);
+  background: linear-gradient(150deg, color-mix(in srgb, var(--c) 46%, transparent), color-mix(in srgb, var(--c) 22%, transparent)); border: 0; border-radius: 0; box-shadow: none;
   animation: nm-drift 52s ease-in-out calc(var(--i) * -5s) infinite alternate;
 }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(3n+2) { --c: #0e7f86; --s: 100px; --dx: -4vw; --dy: 5vh; --rot: -50deg; animation-duration: 64s; }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(3n) { --c: #c4690f; --s: 130px; --dx: 3vw; --dy: 7vh; --rot: 70deg; animation-duration: 76s; }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(3n+2) { --c: #46a8c4; --s: 150px; --dx: -4vw; --dy: 5vh; --rot: -50deg; animation-duration: 64s; }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(3n) { --c: #6aa6e0; --s: 190px; --dx: 3vw; --dy: 7vh; --rot: 70deg; animation-duration: 76s; }
 :root[data-theme='nostalgic'] .scene span:nth-of-type(5n+1) { border-radius: 50%; }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+2) { border-radius: 50%; background: none; border: 9px solid color-mix(in srgb, var(--c) 24%, transparent); }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+2) { border-radius: 50%; background: none; border: 14px solid color-mix(in srgb, var(--c) 40%, transparent); }
 :root[data-theme='nostalgic'] .scene span:nth-of-type(5n+3) { clip-path: polygon(50% 8%, 96% 90%, 4% 90%); }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+4) { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+5) { background: linear-gradient(color-mix(in srgb, var(--c) 24%, transparent), color-mix(in srgb, var(--c) 24%, transparent)) center / 100% 24% no-repeat, linear-gradient(color-mix(in srgb, var(--c) 24%, transparent), color-mix(in srgb, var(--c) 24%, transparent)) center / 24% 100% no-repeat; }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+4) { border-radius: 26%; }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+5) { background: linear-gradient(color-mix(in srgb, var(--c) 42%, transparent), color-mix(in srgb, var(--c) 42%, transparent)) center / 100% 26% no-repeat, linear-gradient(color-mix(in srgb, var(--c) 42%, transparent), color-mix(in srgb, var(--c) 42%, transparent)) center / 26% 100% no-repeat; }
 @keyframes nm-drift { to { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rot)); } }
 @media (prefers-reduced-motion: reduce) { :root[data-theme='nostalgic'] .scene span { animation: none; } :root[data-theme='nostalgic'] .page > * { animation: none; } }
 :root[data-theme='nostalgic'][data-motion='reduced'] .scene span, :root[data-theme='nostalgic'][data-motion='reduced'] .page > * { animation: none; }
@@ -5292,7 +5292,8 @@ button.feed-section-head .caret { flex: none; }
 
 /* ---- glass cards: flat (no blur on big areas), soft shadow, big corners ---- */
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.card, .profile-head) {
-  background: var(--glass); border: 1px solid #ffffff; border-radius: 30px; box-shadow: 0 10px 34px rgba(60, 100, 150, .14);
+  background: var(--glass); border: 1px solid rgba(255, 255, 255, .95); border-radius: 30px;
+  box-shadow: 0 10px 34px rgba(60, 100, 150, .16), inset 0 -5px 0 rgba(88, 150, 214, .16);
   -webkit-backdrop-filter: none; backdrop-filter: none;
 }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) h1:not(:has(.fancy-name)) {
@@ -5346,7 +5347,7 @@ button.feed-section-head .caret { flex: none; }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) .timer-chip { background: var(--accent); color: #ffffff !important; border: 0; border-radius: 999px; font-weight: 800; }
 :root[data-theme='nostalgic'] .modal.card { background: #ffffff; border-radius: 30px; box-shadow: 0 24px 70px rgba(40, 80, 130, .3); }
 :root[data-theme='nostalgic'] .tag { border-radius: 999px; }
-:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) .swatch { border-radius: 50%; }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) .swatch { border-radius: 50%; min-height: 26px; }
 
 /* ---- the shelf: a wide curved white bar along the bottom with round buttons and the clock ---- */
 @media (min-width: 701px) {
@@ -5392,7 +5393,7 @@ button.feed-section-head .caret { flex: none; }
   color-scheme: light;
   --text: #1f2d3d; --muted: #5b6b7c; --accent: #1a6db8; --accent-2: #0e7f86; --on-accent: #ffffff; --danger: #b3261e;
   --edge: #6f89a6;
-  --glass: rgba(255, 255, 255, .78); --glass-inner: #eef4fa; --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(111, 137, 166, .32);
+  --glass: rgba(255, 255, 255, .58); --glass-inner: rgba(236, 244, 251, .6); --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(111, 137, 166, .32);
   --glass-shadow: 0 10px 34px rgba(60, 100, 150, .14);
   --blur: 0px; --r: 20px; --sky-1: #cfe3f5; --sky-2: #eaf1f8;
   --font: 'Nunito', system-ui, sans-serif; --font-head: 'Nunito', system-ui, sans-serif; --head-weight: 900; --head-scale: 1;
