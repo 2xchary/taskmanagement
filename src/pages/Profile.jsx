@@ -20,6 +20,7 @@ import ColorPicker from '../components/ColorPicker.jsx'
 import LevelCard from '../components/LevelCard.jsx'
 import DayBars from '../components/DayBars.jsx'
 import { THEMES, useTheme } from '../lib/theme.jsx'
+import { NM_ACCENTS, useNmAccent } from '../lib/nmAccent.js'
 import { useShop } from '../lib/shop.jsx'
 import { useToast } from '../lib/toast.jsx'
 import { IS_ADMIN } from '../lib/env.js'
@@ -73,6 +74,7 @@ export default function Profile() {
   const userId = id ?? user.id
   const mine = userId === user.id
   const { theme, setTheme } = useTheme()
+  const [nmAccent, setNmAccent] = useNmAccent()
   const shop = useShop()
   const toast = useToast()
   const baseline = useRef(null)    // picture / frame / banner as last saved, to tell what changed
@@ -319,6 +321,18 @@ export default function Profile() {
             </div>
             <CustomizeRow label="Page theme" name={currentTheme.name} onClick={() => setPicker('theme')}
               preview={<span className="theme-swatch mini" aria-hidden="true">{currentTheme.preview.map((c, i) => <i key={i} style={{ background: c }} />)}</span>} />
+            {theme === 'nostalgic' && (
+              <div className="banner-pic-row">
+                <strong>Nostalgic Menu colour</strong>
+                <div className="swatches" role="group" aria-label="Nostalgic Menu colour">
+                  {NM_ACCENTS.map(c => (
+                    <button key={c.id} type="button" className={'swatch' + (nmAccent === c.id ? ' on' : '')} style={{ background: c.swatch }}
+                      aria-label={c.name} aria-pressed={nmAccent === c.id} title={c.name} onClick={() => setNmAccent(c.id)} />
+                  ))}
+                </div>
+                <small className="muted">Changes the buttons, the drifting shapes, the glow and the 3D icons together. Kept on this device.</small>
+              </div>
+            )}
             <CustomizeRow label="Picture frame" name={cosmetics.find(c => c.id === profile.frame)?.name ?? 'No frame'}
               onClick={() => setPicker('frame')}
               preview={<FramePreview id={profile.frame} size={42} />} />

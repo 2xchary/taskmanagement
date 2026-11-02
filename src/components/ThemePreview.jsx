@@ -3,13 +3,16 @@
 // still shows its palette.
 const pictures = import.meta.glob('../assets/theme-previews/*.{jpg,png}', { eager: true, query: '?url', import: 'default' })
 
+import { useNmAccent } from '../lib/nmAccent.js'
+
 const STYLE_PACKS = ['clay', 'brutal', 'wabi', 'cyber', 'scrap', 'phantom', 'nostalgic']
 
 // A Style pack is more than colours, so it gets a miniature of the app drawn with its real box, button and field styles.
 function StylePackPreview({ id, colors }) {
+  const [nm] = useNmAccent()   // Nostalgic Menu's miniature shows the colour you picked
   return (
     <span className="theme-preview" aria-hidden="true">
-      <span className="sp" data-pack={id}>
+      <span className="sp" data-pack={id} data-accent={id === 'nostalgic' ? nm : undefined}>
         <span className="sp-bar"><i /><i /><b>LOCK IN</b><em>Lv 7</em></span>
         <span className="card">
           <h3>Today</h3>
