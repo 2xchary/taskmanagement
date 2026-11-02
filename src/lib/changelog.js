@@ -3,6 +3,14 @@
 // { version, date: 'YYYY-MM-DD', title, points: [short bullet, ...] }
 export const CHANGELOG = [
   {
+    version: '2.56', date: '2026-11-02', title: 'Did my work, and Still studying?',
+    points: [
+      'Each work day on your planner now has a separate "Did my work?" button, so you can say you did what you planned without finishing the whole task.',
+      'The Count up timer asks "Still studying?" after 5 hours, with a big flash and a loud ping. If nobody answers within an hour, the time is still saved, the clock stops, and the admin reviews it.',
+      'All six Style packs now cost 600 coins. The OWNER tag next to names is gone.',
+    ],
+  },
+  {
     version: '2.55', date: '2026-11-01', title: 'Phantom Heist style pack',
     points: [
       'A new Style pack in the Shop, 700 coins: red, black and white with black dialogue-box cards, white name-tag titles and a slanted dock, plus its own sharp sound pack.',

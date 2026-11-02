@@ -6,7 +6,6 @@ import { fmtMinutes, startOfWeek } from '../lib/dates.js'
 import { DEMO, demoLeaderboard, demoSessions } from '../lib/demo.js' // DEMO
 import Avatar from './Avatar.jsx'
 import MiniBadges from './MiniBadges.jsx'
-import OwnerTag from './OwnerTag.jsx'
 import { useTopBadges } from '../lib/achievements.jsx'
 
 const MEDAL = ['🥇', '🥈', '🥉']
@@ -107,7 +106,7 @@ export default function Leaderboard({ version }) {
                 <span className="lb-medal" aria-hidden="true">{MEDAL[i]}</span>
                 {r.minutes >= 30 && <small className="lb-prize">+{PRIZE[i]} coins</small>}
                 <Avatar name={r.display_name} path={r.avatar_path} color={r.color} frame={r.frame} size={i === 0 ? 56 : 46} />
-                <span className="lb-name">{r.display_name}{r.user_id === user.id ? ' (you)' : ''} <OwnerTag userId={r.user_id} /></span>
+                <span className="lb-name">{r.display_name}{r.user_id === user.id ? ' (you)' : ''}</span>
                 <strong>{fmtMinutes(r.minutes)}</strong>
                 <span className="lb-step" style={{ height: `${Math.max(18, Math.round((r.minutes / top) * 64))}px` }} />
               </Link>
@@ -124,7 +123,7 @@ export default function Leaderboard({ version }) {
               <Avatar name={r.display_name} path={r.avatar_path} color={r.color} frame={r.frame} size={34} />
               <div className="lb-row-main">
                 <div className="lb-row-line">
-                  <Link to={`/profile/${r.user_id}`}>{r.display_name}{r.user_id === user.id ? ' (you)' : ''}</Link> <OwnerTag userId={r.user_id} />
+                  <Link to={`/profile/${r.user_id}`}>{r.display_name}{r.user_id === user.id ? ' (you)' : ''}</Link>
                   <MiniBadges userId={r.user_id} list={badges.get(r.user_id)} />
                   <span className="spacer" />
                   <strong>{fmtMinutes(r.minutes)}</strong>

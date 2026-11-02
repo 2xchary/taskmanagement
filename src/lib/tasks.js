@@ -102,11 +102,17 @@ export function useTasks() {
     if (task.repeat_id && 'day' in patch && patch.day !== task.day) await skipDay(task)
     setTasks(t => t.map(x => (x.id === task.id ? { ...x, ...patch } : x)))
     const { error } = await supabase.from('tasks').update(patch).eq('id', task.id)
-    if (error) { setError(error.message); load() }
+    if (error) { setError(/plan_done/.test(error.message) ? 'Ticking off a work day needs a database update first (supabase/052_work_done_and_study_checks.sql).' : error.message); load() }
   }
 
   const toggle = task => update(task, { done: !task.done })
   const move = (task, day) => update(task, { day })
+
+  // "I did my work for the day": ticks (or un-ticks) one work day of a task, separate from finishing the whole task.
+  const markWorked = (task, key) => {
+    const have = task.plan_done ?? []
+    return update(task, { plan_done: have.includes(key) ? have.filter(k => k !== key) : [...have, key].sort() })
+  }
 
   async function remove(task) {
     if (isDemoId(task.id)) return setDemo(d => d.filter(x => x.id !== task.id)) // DEMO
@@ -153,5 +159,5 @@ export function useTasks() {
     return true
   }
 
-  return { tasks: [...demo, ...tasks], repeats, error, add, update, toggle, move, remove, makeRepeat, changeRepeat, stopRepeat } // DEMO: was `tasks`
+  return { tasks: [...demo, ...tasks], repeats, error, add, update, toggle, move, markWorked, remove, makeRepeat, changeRepeat, stopRepeat } // DEMO: was `tasks`
 }

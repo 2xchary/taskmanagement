@@ -39,6 +39,8 @@ import DevPanel from './components/DevPanel.jsx'
 import TimerOverlay from './components/TimerOverlay.jsx'
 import UpdateNotice from './components/UpdateNotice.jsx'
 import PipTimer from './components/PipTimer.jsx'
+import StillStudying from './components/StillStudying.jsx'
+import StudyFlagAlert from './components/StudyFlags.jsx'
 import { publicUrl } from './lib/storage.js'
 import { APP_TITLE, IS_ADMIN, IS_DEV_BUILD, IS_FAKE } from './lib/env.js'
 import { DEMO } from './lib/demo.js' // DEMO
@@ -123,6 +125,8 @@ export default function App() {
       {user && pathname !== '/login' && <StartupIntro />}
       {user && <DueReminders />}
       {user && <TimerOverlay />}
+      {user && <StillStudying />}
+      {user && <StudyFlagAlert />}
       <UpdateNotice />
       {user && <PipTimer />}
       {user && <PrizeNews />}

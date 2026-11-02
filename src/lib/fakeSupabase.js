@@ -242,7 +242,6 @@ const FAKE_PEOPLE = () => [
 ]
 const rpcs = {
   is_admin: () => true,
-  owner_ids: () => [ME],
   admin_post_announcement: args => { db.announcements.unshift({ id: 'a-' + Date.now(), title: args?.head, body: args?.msg ?? '', major: !!args?.is_major, created_at: new Date().toISOString(), expires_at: null }); save(); return null },
   streak_status: args => {
     const day = args?.local_day ?? new Date().toISOString().slice(0, 10)
@@ -264,6 +263,25 @@ const rpcs = {
   boost_news: () => [],
   accept_terms: args => { if (db.profiles[0]) db.profiles[0].tos_version = args?.v ?? 1; save(); return null },
   admin_overview: () => ({ users: 3, new_7d: 2, active_7d: 3, focus_hours_7d: 31.5, posts: 6, posts_7d: 4, comments: 15, reports_open: 1, muted: 1, banned: 0, tasks_done_7d: 22 }),
+  flag_study_check: args => {
+    const rows = db.study_sessions.filter(s => (args?.ids ?? []).includes(s.id))
+    const total = rows.reduce((n, s) => n + s.minutes, 0)
+    if (total) { (db.study_flags ??= []).push({ id: uid(), user_id: ME, session_ids: rows.map(s => s.id), claimed_minutes: total, verified_minutes: Math.min(total, args?.verified ?? 0), status: 'open', final_minutes: null, created_at: new Date().toISOString(), resolved_at: null }); save() }
+    return null
+  },
+  admin_study_flags: () => (db.study_flags ?? []).map(f => ({ ...f, person: db.profiles.find(p => p.id === f.user_id)?.display_name ?? 'Someone', username: null }))
+    .sort((a, b) => (a.status === 'open' ? 0 : 1) - (b.status === 'open' ? 0 : 1) || b.created_at.localeCompare(a.created_at)),
+  admin_resolve_study_flag: args => {
+    const f = (db.study_flags ?? []).find(x => x.id === args?.fid)
+    if (!f || f.status !== 'open') return null
+    let left = args.how === 'keep' ? f.claimed_minutes : args.how === 'void' ? 0 : Math.max(0, args.true_minutes ?? 0)
+    for (const s of db.study_sessions.filter(x => f.session_ids.includes(x.id)).sort((a, b) => a.created_at.localeCompare(b.created_at))) {
+      const part = Math.min(s.minutes, left); s.minutes = part; left -= part
+    }
+    db.study_sessions = db.study_sessions.filter(s => s.minutes > 0)
+    Object.assign(f, { status: args.how === 'keep' ? 'kept' : args.how === 'void' || !args.true_minutes ? 'voided' : 'adjusted', final_minutes: args.how === 'keep' ? f.claimed_minutes : args.how === 'void' ? 0 : args.true_minutes, resolved_at: new Date().toISOString() })
+    save(); return null
+  },
   admin_list_users: () => FAKE_PEOPLE(),
   admin_recent_posts: () => [{ id: 'demo-p1', user_id: 'demo-u1', author: 'Priya S.', body: 'Finished the whole problem set!', image_path: 'x', created_at: new Date().toISOString(), comments: 3, reports: 0 }],
   admin_list_reports: () => [{ id: 'demo-r1', reason: 'Spam or ads', status: 'open', created_at: new Date().toISOString(), reporter: 'Priya S.', target_user: 'demo-u2', target: 'Alex R.', post_id: null, comment_id: 'demo-c1', content: 'check out my store!!', image_path: null }],

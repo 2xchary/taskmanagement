@@ -5073,10 +5073,6 @@ button.feed-section-head .caret { flex: none; }
 /* ---- legal pages ---- */
 .legal-links { text-align: center; margin: 1rem 0 .5rem; }
 
-/* ---- the OWNER tag next to a name ---- */
-.owner-tag { display: inline-block; vertical-align: middle; margin-left: .35rem; padding: .08rem .5rem; border-radius: 999px; font: 800 .62rem/1.4 var(--font-ui, inherit); letter-spacing: .1em;
-  background: linear-gradient(135deg, #ffd35a, #ff9d2e); color: #4a2b00; box-shadow: 0 1px 4px rgba(120, 70, 0, .35); white-space: nowrap; -webkit-text-fill-color: #4a2b00; }
-h1 .owner-tag { font-size: .7rem; }
 
 /* ---- Phantom Heist: red, white and black. White dialogue-box cards, bubble buttons, name-tag titles. Black is the accent ---- */
 :is(:root[data-theme='phantom'], .sp[data-pack='phantom']) {
@@ -5224,3 +5220,33 @@ h1 .owner-tag { font-size: .7rem; }
 /* the profile card has a banner picture across its top edge, so its slab stays square at the top */
 :root[data-theme='phantom'] .profile-head::before, :root[data-theme='phantom'] .profile-head::after { inset: 0 -10px -8px -10px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5px), 97% 100%, 22px calc(100% - 8px), 0 100%); }
 :root[data-theme='phantom'] .profile-head::before { translate: 9px 10px; }
+
+/* ---- "Did my work?" button on a work day ---- */
+.worked-btn { flex: none; align-self: center; padding: .28rem .6rem; font-size: .78rem; font-weight: 650; white-space: nowrap; background: transparent; color: var(--text); border: 1.5px dashed var(--glass-line); box-shadow: none; }
+.worked-btn:hover:not(:disabled) { border-style: solid; border-color: var(--accent); }
+.worked-btn.on { background: var(--accent); color: var(--on-accent); border: 1.5px solid transparent; }
+@media (max-width: 700px) { .task { flex-wrap: wrap; } .worked-btn { order: 5; margin-left: 1.7rem; } }
+
+/* ---- "Still studying?" (count-up timer check-in): fills the screen, flashes and pings until answered ---- */
+.still-backdrop { z-index: 80; background: rgba(200, 20, 30, .55); animation: still-flash 1.6s ease-in-out infinite; }
+.still-ask { max-width: 440px; text-align: center; align-items: center; border: 4px solid #e11d2a; box-shadow: 0 0 0 6px rgba(225, 29, 42, .35), 0 20px 60px rgba(0, 0, 0, .5); animation: still-pulse 1s ease-in-out infinite; }
+.still-ask h2 { font-size: 2.2rem; letter-spacing: .02em; text-transform: uppercase; color: #e11d2a; }
+.still-bell { font-size: 3.4rem; line-height: 1; animation: still-ring .7s ease-in-out infinite; transform-origin: 50% 8%; }
+.still-count { padding: .5rem .8rem; border-radius: var(--r-sm); background: color-mix(in srgb, #e11d2a 14%, transparent); }
+.still-yes { width: 100%; font-size: 1.25rem; padding: .9rem 1rem; background: #e11d2a; color: #fff; }
+.still-ask button.secondary { width: 100%; }
+@keyframes still-flash { 0%, 100% { background: rgba(200, 20, 30, .35); } 50% { background: rgba(255, 60, 60, .7); } }
+@keyframes still-pulse { 50% { scale: 1.03; } }
+@keyframes still-ring { 0%, 100% { rotate: 0deg; } 20% { rotate: 18deg; } 40% { rotate: -16deg; } 60% { rotate: 10deg; } 80% { rotate: -8deg; } }
+@media (prefers-reduced-motion: reduce) { .still-backdrop, .still-ask, .still-bell { animation: none; } .still-backdrop { background: rgba(200, 20, 30, .6); } }
+:root[data-motion='reduced'] :is(.still-backdrop, .still-ask, .still-bell) { animation: none; }
+
+/* ---- admin: study time nobody confirmed ---- */
+.flag-banner { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 6px); left: 50%; translate: -50% 0; z-index: 35; width: max-content; max-width: min(94vw, 560px); padding: .5rem 1rem; background: #e11d2a; color: #fff; border: 2px solid #fff; border-radius: 999px; font-weight: 700; font-size: .88rem; box-shadow: 0 6px 20px rgba(0, 0, 0, .35); animation: flag-pulse 1.4s ease-in-out infinite; }
+.flag-banner u { margin-left: .4rem; }
+@keyframes flag-pulse { 50% { box-shadow: 0 0 0 6px rgba(225, 29, 42, .35), 0 6px 20px rgba(0, 0, 0, .35); } }
+@media (prefers-reduced-motion: reduce) { .flag-banner { animation: none; } }
+.study-flag { display: flex; flex-direction: column; gap: .5rem; }
+.study-flag.resolved { opacity: .7; }
+.study-flag-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
+.study-flag-true input { width: 5rem; }

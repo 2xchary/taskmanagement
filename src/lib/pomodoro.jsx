@@ -24,6 +24,10 @@ export const hms = ms => {
 // saved as study time, which is where the XP comes from, and the clock starts again at zero.
 // It is stored in this browser (per account) so closing the tab or moving between pages does not lose it.
 const MAX_DAY_MIN = 600                                   // at most 10 hours are counted for one day
+// "Still studying?": after this much counted time without a check-in the clock asks. If nobody answers within the grace
+// time the time is still saved, the clock stops, and it is flagged for the admin to look at (see 052_work_done_and_study_checks.sql).
+export const STILL_AFTER_MS = 5 * 3600000
+export const STILL_GRACE_MS = 3600000
 const dayKey = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 const endOfDay = key => { const [y, m, d] = key.split('-').map(Number); return new Date(y, m - 1, d, 23, 59, 0, 0) }
 const startOfDay = d => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0)
@@ -38,9 +42,12 @@ const readKind = () => { try { return localStorage.getItem(KIND_KEY) === 'countu
 const readCu = uid => {
   try {
     const v = JSON.parse(localStorage.getItem(cuKey(uid)) ?? 'null')
-    if (v && typeof v.day === 'string') return { day: v.day, accMs: Number(v.accMs) || 0, startedAt: v.startedAt ? Number(v.startedAt) : null }
+    if (v && typeof v.day === 'string') {
+      return { day: v.day, accMs: Number(v.accMs) || 0, startedAt: v.startedAt ? Number(v.startedAt) : null,
+        verifiedMs: Number(v.verifiedMs) || 0, askedAt: v.askedAt ? Number(v.askedAt) : null }
+    }
   } catch { /* fresh */ }
-  return { day: dayKey(new Date()), accMs: 0, startedAt: null }
+  return { day: dayKey(new Date()), accMs: 0, startedAt: null, verifiedMs: 0, askedAt: null }
 }
 
 // Lives above the router so the timer keeps running while you move between pages.
@@ -58,7 +65,8 @@ export function PomodoroProvider({ children }) {
   const [msg, setMsg] = useState('')
   const [logged, setLogged] = useState(0) // bumps whenever a session is saved
   const [kind, setKindState] = useState(readKind)   // 'pomodoro' | 'countup'
-  const [cu, setCu] = useState(() => ({ day: dayKey(new Date()), accMs: 0, startedAt: null }))
+  // verifiedMs: how much of the count was already confirmed by a person; askedAt: when "Still studying?" popped up (waiting for an answer)
+  const [cu, setCu] = useState(() => ({ day: dayKey(new Date()), accMs: 0, startedAt: null, verifiedMs: 0, askedAt: null }))
   const [now, setNow] = useState(() => Date.now())
   const cuRef = useRef(cu)
   cuRef.current = cu
@@ -70,15 +78,18 @@ export function PomodoroProvider({ children }) {
   useEffect(() => { if (!running) setLeft(total) }, [mode, focusMin, breakMin]) // eslint-disable-line
 
   // Save study time. A row holds at most 4 hours, so a long stretch becomes a few rows.
+  // Returns the ids of the saved rows (an empty list still counts as saved), or false if it could not be saved.
   async function logMinutes(minutes, at) {
     if (minutes < 1 || !user) return false
     let left = Math.min(minutes, MAX_DAY_MIN)
+    const ids = []
     while (left > 0) {
       const part = Math.min(240, left)
       const row = { user_id: user.id, minutes: part }
-      let { error } = await supabase.from('study_sessions').insert(at ? { ...row, created_at: at.toISOString() } : row)
-      if (error && at) ({ error } = await supabase.from('study_sessions').insert(row))   // could not set the time: save it as now
+      let { data, error } = await supabase.from('study_sessions').insert(at ? { ...row, created_at: at.toISOString() } : row).select('id').single()
+      if (error && at) ({ data, error } = await supabase.from('study_sessions').insert(row).select('id').single())   // could not set the time: save it as now
       if (error) { setMsg(error.message); return false }
+      if (data?.id) ids.push(data.id)
       left -= part
     }
     setLogged(n => n + 1)
@@ -89,7 +100,13 @@ export function PomodoroProvider({ children }) {
       const todayMin = (data ?? []).reduce((n, r) => n + r.minutes, 0)
       if (todayMin > 0) toast(`+${Math.min(minutes, MAX_DAY_MIN)} XP · ${todayMin} min of focus today (${todayMin} XP)`, 'xp', { silent: true })
     }
-    return true
+    return ids
+  }
+
+  // Tell the admin about time that nobody confirmed. Quiet if the database has not been given 052 yet.
+  async function flagStudy(ids, claimed, verifiedMs) {
+    if (!ids?.length) return
+    try { await supabase.rpc('flag_study_check', { ids, claimed, verified: Math.min(claimed, Math.floor(verifiedMs / 60000)) }) } catch { /* not set up yet: the time is still saved */ }
   }
 
   async function log(minutes) {
@@ -156,7 +173,8 @@ export function PomodoroProvider({ children }) {
   }, [user?.id, running, mode]) // eslint-disable-line
 
   // ---- count-up: load this account's clock, keep it saved, and roll over at midnight ----
-  const store = next => {
+  const store = state => {
+    const next = { verifiedMs: 0, askedAt: null, ...state }
     setCu(next)
     cuRef.current = next
     try { localStorage.setItem(cuKey(user.id), JSON.stringify(next)) } catch { /* ignore */ }
@@ -174,10 +192,43 @@ export function PomodoroProvider({ children }) {
     const ms = state.accMs + (state.startedAt ? Math.max(0, Math.min(t, dayEnd.getTime() + 60000) - state.startedAt) : 0)
     const minutes = Math.floor(ms / 60000)
     const running = !!state.startedAt
+    const unconfirmed = ms - (state.verifiedMs ?? 0) >= STILL_AFTER_MS      // a long stretch nobody checked in on
     store({ day: today, accMs: 0, startedAt: running ? startOfDay(new Date(t)).getTime() : null })
-    if (minutes >= 1 && await logMinutes(minutes, dayEnd)) {
+    const ids = minutes >= 1 ? await logMinutes(minutes, dayEnd) : false
+    if (ids) {
       toast(`Yesterday's count-up time was saved: ${minutes} min of focus.`, 'xp')
+      if (unconfirmed) flagStudy(ids, Math.min(minutes, MAX_DAY_MIN), (state.verifiedMs ?? 0) + STILL_AFTER_MS)
     }
+  }
+
+  // "Still studying?": ask once the clock has counted 5 hours since the last check-in. If the app was closed meanwhile,
+  // the question counts as asked at the moment it was due, so an unanswered hour is not waiting for someone to come back.
+  const expiring = useRef(false)
+  async function expireStill(s, total) {
+    expiring.current = true
+    try {
+      const minutes = Math.floor(total / 60000)
+      // nobody is answering: stop the clock, save what it counted, and flag it
+      store({ day: s.day, accMs: total - minutes * 60000, startedAt: null })
+      const ids = await logMinutes(minutes)
+      if (ids) {
+        await flagStudy(ids, Math.min(minutes, MAX_DAY_MIN), s.verifiedMs + STILL_AFTER_MS)
+        toast(`Nobody answered "Still studying?", so ${Math.min(minutes, MAX_DAY_MIN)} min were saved and sent to the admin to review.`, 'info')
+      } else {
+        store({ day: s.day, accMs: total, startedAt: null, verifiedMs: total })      // could not save: keep the time, stopped
+      }
+    } finally { expiring.current = false }
+  }
+  function checkStill(t) {
+    const s = cuRef.current
+    if (!s.startedAt || expiring.current) return
+    const total = cuTotalAt(s, t)
+    let askedAt = s.askedAt
+    if (!askedAt && total - s.verifiedMs >= STILL_AFTER_MS) {
+      askedAt = t - (total - s.verifiedMs - STILL_AFTER_MS)
+      store({ ...s, askedAt })
+    }
+    if (askedAt && t - askedAt >= STILL_GRACE_MS) expireStill(cuRef.current, total)
   }
 
   useEffect(() => {
@@ -185,8 +236,10 @@ export function PomodoroProvider({ children }) {
     const id = setInterval(() => {
       const t = Date.now()
       if (cuRef.current.startedAt) setNow(t)      // only re-draw every second while the clock is actually running
+      checkStill(t)
       rollOver(cuRef.current, t)
     }, 1000)
+    checkStill(Date.now())
     rollOver(cuRef.current, Date.now())
     return () => clearInterval(id)
   }, [user?.id]) // eslint-disable-line
@@ -199,7 +252,9 @@ export function PomodoroProvider({ children }) {
     const t = Date.now()
     if (cuRef.current.startedAt) {
       play('stop')
-      store({ ...cuRef.current, accMs: cuTotalAt(cuRef.current, t), startedAt: null })
+      // pausing is a check-in too: someone is there
+      const total = cuTotalAt(cuRef.current, t)
+      store({ ...cuRef.current, accMs: total, startedAt: null, verifiedMs: total, askedAt: null })
     } else {
       if (running) {
         // one clock at a time: pause the Pomodoro round, keeping its time
@@ -230,15 +285,32 @@ export function PomodoroProvider({ children }) {
     store({ day: cuRef.current.day, accMs: 0, startedAt: null })
   }
 
+  // answers to "Still studying?"
+  function stillYes() {
+    const t = Date.now()
+    const s = cuRef.current
+    store({ ...s, verifiedMs: cuTotalAt(s, t), askedAt: null })
+    setNow(t)
+  }
+  // "I stopped a while ago": count only up to the moment it asked, and pause.
+  function stillStopped() {
+    const s = cuRef.current
+    const total = Math.min(cuTotalAt(s, Date.now()), s.verifiedMs + STILL_AFTER_MS)
+    play('stop')
+    store({ ...s, accMs: total, startedAt: null, verifiedMs: total, askedAt: null })
+  }
+  const stillAsk = cu.askedAt && cu.startedAt ? { askedAt: cu.askedAt, deadline: cu.askedAt + STILL_GRACE_MS } : null
+
   function setKind(next) {
     setKindState(next)
     try { localStorage.setItem(KIND_KEY, next) } catch { /* ignore */ }
   }
 
   useEffect(() => {
-    document.title = running ? `${mmss(left)} · ${mode === 'focus' ? 'Focus' : 'Break'}`
+    document.title = stillAsk ? '⚠ STILL STUDYING? · LOCK IN'
+      : running ? `${mmss(left)} · ${mode === 'focus' ? 'Focus' : 'Break'}`
       : cuRunning ? `${hms(cuElapsedMs)} · Counting` : APP_TITLE
-  }, [running, left, mode, cuRunning, cuElapsedMs])
+  }, [running, left, mode, cuRunning, cuElapsedMs, !!stillAsk]) // eslint-disable-line
 
   function startPause() {
     if (running) {
@@ -270,6 +342,7 @@ export function PomodoroProvider({ children }) {
     elapsedMin, msg, logged, startPause, finishEarly, finished, clearFinished: () => setFinished(null),
     // count-up timer
     kind, setKind, cuRunning, cuElapsedMs, cuMinutes, cuDay: cu.day, cuStartPause, cuLogNow, cuReset, maxDayMin: MAX_DAY_MIN,
+    stillAsk, stillYes, stillStopped,
   }
   return <PomodoroContext.Provider value={value}>{children}</PomodoroContext.Provider>
 }

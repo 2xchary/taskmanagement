@@ -11,7 +11,6 @@ import { DEMO, demoProfile, isDemoId } from '../lib/demo.js' // DEMO
 import { colorHex } from '../lib/colors.js'
 import Avatar, { FramePreview } from '../components/Avatar.jsx'
 import FancyName from '../components/FancyName.jsx'
-import OwnerTag from '../components/OwnerTag.jsx'
 import PickerModal from '../components/PickerModal.jsx'
 import ThemePreview from '../components/ThemePreview.jsx'
 import BadgeStrip from '../components/BadgeStrip.jsx'
@@ -210,7 +209,7 @@ export default function Profile() {
             <Avatar name={profile.display_name} path={profile.avatar_path} color={profile.color}
               frame={profile.frame} size={88} />
             <div>
-              <h1><FancyName name={profile.display_name} /> <OwnerTag userId={userId} /></h1>
+              <h1><FancyName name={profile.display_name} /></h1>
               {profile.username && <p className="profile-username">@{profile.username}</p>}
               {profile.college && <p className="profile-username">🎓 {profile.college}</p>}
               <p className="muted">{mine ? 'This is how friends see you' : 'Friend profile'}</p>

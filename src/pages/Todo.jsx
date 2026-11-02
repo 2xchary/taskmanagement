@@ -11,7 +11,7 @@ import WeekPlanner from '../components/WeekPlanner.jsx'
 import TaskModal from '../components/TaskModal.jsx'
 
 export default function Todo() {
-  const { tasks, repeats, error, update, toggle, move: moveRaw, remove: removeRaw, add: addRaw, makeRepeat, changeRepeat, stopRepeat } = useTasks()
+  const { tasks, repeats, error, update, toggle, move: moveRaw, markWorked, remove: removeRaw, add: addRaw, makeRepeat, changeRepeat, stopRepeat } = useTasks()
   const { xp, refresh } = useMyXp()
   const toast = useToast()
   const [openId, setOpenId] = useState(null)
@@ -69,12 +69,17 @@ export default function Todo() {
     return moveRaw(task, day)
   }
 
+  const workedToday = (task, key) => {
+    if (!(task.plan_done ?? []).includes(key)) toast(`✓ Nice. You did your work on "${task.title}"`, 'info', { silent: true })
+    return markWorked(task, key)
+  }
+
   return (
     <div className="todo">
       {error && <p className="warn todo-error">{error}</p>}
       <Inbox tasks={tasks} add={addTask} toggle={toggleTask} remove={removeTask} move={moveTask}
         onOpen={t => setOpenId(t.id)} />
-      <WeekPlanner tasks={tasks} add={addTask} toggle={toggleTask} remove={removeTask} move={moveTask}
+      <WeekPlanner tasks={tasks} add={addTask} toggle={toggleTask} remove={removeTask} move={moveTask} worked={workedToday}
         onOpen={t => setOpenId(t.id)} />
       {openTask && (
         <TaskModal

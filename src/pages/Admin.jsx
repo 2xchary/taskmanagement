@@ -5,8 +5,9 @@ import { useIsAdmin } from '../lib/moderation.js'
 import { useToast } from '../lib/toast.jsx'
 import { removeImage } from '../lib/storage.js'
 import PickerModal from '../components/PickerModal.jsx'
+import { FLAGS_CHANGED, StudyFlagCard } from '../components/StudyFlags.jsx'
 
-const TABS = [['overview', 'Overview'], ['users', 'People'], ['reports', 'Reports'], ['posts', 'Posts'], ['announce', 'Announcements'], ['log', 'Activity']]
+const TABS = [['overview', 'Overview'], ['users', 'People'], ['reports', 'Reports'], ['study', 'Study checks'], ['posts', 'Posts'], ['announce', 'Announcements'], ['log', 'Activity']]
 const fmtDate = d => (d ? new Date(d).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' }) : '')
 const fmtWhen = d => (d ? new Date(d).toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : '')
 
@@ -18,7 +19,7 @@ export default function Admin() {
   useEffect(() => { const t = setTimeout(() => setChecked(true), 1500); return () => clearTimeout(t) }, [])
   const toast = useToast()
   const [tab, setTab] = useState('overview')
-  const [data, setData] = useState({ overview: null, users: [], posts: [], reports: [], log: [], announcements: [] })
+  const [data, setData] = useState({ overview: null, users: [], posts: [], reports: [], log: [], announcements: [], flags: [] })
   const [loading, setLoading] = useState(false)
   const [q, setQ] = useState('')
   const [dialog, setDialog] = useState(null)      // { type, user }
@@ -31,12 +32,13 @@ export default function Admin() {
 
   const load = useCallback(async () => {
     setLoading(true)
-    const [o, u, p, r, l, a] = await Promise.all([
+    const [o, u, p, r, l, a, f] = await Promise.all([
       supabase.rpc('admin_overview'), supabase.rpc('admin_list_users'), supabase.rpc('admin_recent_posts', { n: 60 }),
       supabase.rpc('admin_list_reports'), supabase.rpc('admin_recent_log', { n: 60 }),
       supabase.from('announcements').select('*').order('created_at', { ascending: false }).limit(20),
+      supabase.rpc('admin_study_flags'),
     ])
-    setData({ overview: o.data, users: u.data ?? [], posts: p.data ?? [], reports: r.data ?? [], log: l.data ?? [], announcements: a.data ?? [] })
+    setData({ overview: o.data, users: u.data ?? [], posts: p.data ?? [], reports: r.data ?? [], log: l.data ?? [], announcements: a.data ?? [], flags: Array.isArray(f.data) ? f.data : [] })
     setLoading(false)
   }, [])
 
@@ -50,6 +52,15 @@ export default function Admin() {
   if (!isAdmin) return checked ? <Navigate to="/" replace /> : <p className="muted">Checking…</p>
 
   const openReports = data.reports.filter(r => r.status === 'open')
+  const openFlags = data.flags.filter(f => f.status === 'open')
+
+  async function resolveFlag(flag, how, true_minutes) {
+    const r = await call('admin_resolve_study_flag', { fid: flag.id, how, true_minutes: true_minutes ?? null })
+    if (r.error) return
+    toast(how === 'keep' ? 'Kept as saved' : how === 'void' ? 'Voided' : 'Changed to the true time', 'info', { silent: true })
+    window.dispatchEvent(new Event(FLAGS_CHANGED))
+    load()
+  }
 
   async function act(fn, args, ok) {
     const r = await call(fn, args)
@@ -82,7 +93,7 @@ export default function Admin() {
       <div className="tabs admin-tabs" role="tablist">
         {TABS.map(([id, label]) => (
           <button key={id} type="button" role="tab" aria-selected={tab === id} className={tab === id ? 'active' : ''} onClick={() => setTab(id)}>
-            {label}{id === 'reports' && openReports.length > 0 ? ` (${openReports.length})` : ''}
+            {label}{id === 'reports' && openReports.length > 0 ? ` (${openReports.length})` : ''}{id === 'study' && openFlags.length > 0 ? ` (${openFlags.length})` : ''}
           </button>
         ))}
       </div>
@@ -156,6 +167,14 @@ export default function Admin() {
               )}
             </article>
           ))}
+        </section>
+      )}
+
+      {tab === 'study' && (
+        <section className="stack">
+          <p className="muted small">When the count-up timer runs 5 hours and nobody answers “Still studying?” for an hour, the time is saved anyway and lands here for you to keep, change to the true time, or void.</p>
+          {data.flags.length === 0 && <p className="muted">Nothing to check. All clear.</p>}
+          {data.flags.map(f => <StudyFlagCard key={f.id} flag={f} onResolve={resolveFlag} />)}
         </section>
       )}
 

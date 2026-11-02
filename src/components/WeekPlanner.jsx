@@ -159,7 +159,7 @@ function Upcoming({ tasks, onOpen }) {
 }
 
 // One column of the planner: a single weekday, or Saturday + Sunday together as "Weekend".
-function Column({ title, dates, tasks, toggle, remove, move, onOpen, onExpand, full }) {
+function Column({ title, dates, tasks, toggle, remove, move, worked, onOpen, onExpand, full }) {
   const [over, setOver] = useState(false)
   const keys = dates.map(isoDate)
   const isWeekend = dates.length > 1
@@ -168,6 +168,8 @@ function Column({ title, dates, tasks, toggle, remove, move, onOpen, onExpand, f
   const dueItems = tasks.filter(t => t.due_date && keys.includes(t.due_date) && !t.done && !onWorkDay(t))
   const workItems = []
   const done = items.filter(t => t.done).length
+  const workKey = t => keys.find(k => t.day === k || (t.plan_days ?? []).includes(k))   // which of this column's days the task is planned on
+  const workedCount = items.filter(t => !t.done && (t.plan_done ?? []).includes(workKey(t))).length
 
   const dayLabel = t => (isWeekend ? (new Date(t.day + 'T00:00:00').getDay() === 6 ? 'Sat' : 'Sun') : undefined)
 
@@ -190,14 +192,15 @@ function Column({ title, dates, tasks, toggle, remove, move, onOpen, onExpand, f
         onKeyDown={onExpand ? e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onExpand() } } : undefined}>
         {title}{' '}
         <small>{isWeekend ? `${fmtDay(dates[0])} – ${fmtDay(dates[1])}` : fmtDay(dates[0])}</small>
-        {items.length > 0 && <small className="count">{done}/{items.length} done</small>}
+        {items.length > 0 && <small className="count">{done}/{items.length} done{workedCount > 0 ? ` · ${workedCount} worked` : ''}</small>}
       </h3>
       <ul className="tasks scroll">
         {items.length === 0 && dueItems.length === 0 && workItems.length === 0 && <li className="muted small">Nothing here. Drop a task to plan it for this day.</li>}
         {items.length > 0 && <li className="day-group-head plan"><b className="sk sk-work">WORK</b> To do this day</li>}
         {items.map(t => (
           <TaskItem key={t.id} task={t} onToggle={toggle} onRemove={remove} onOpen={onOpen}
-            draggable label={dayLabel(t)} note={keys.map(k => t.plan_notes?.[k]).find(Boolean)} />
+            draggable label={dayLabel(t)} note={keys.map(k => t.plan_notes?.[k]).find(Boolean)}
+            workDay={workKey(t)} onWorked={worked} />
         ))}
         {dueItems.length > 0 && <li className="day-group-head due"><b className="sk sk-due">DUE</b> Due this day</li>}
         {dueItems.map(t => (
@@ -213,7 +216,7 @@ function Column({ title, dates, tasks, toggle, remove, move, onOpen, onExpand, f
 }
 
 // The planner: the week as seven count tiles, the month beneath it, and what is due soon. Tasks themselves open in a day pop-up.
-export default function WeekPlanner({ tasks, toggle, remove, move, onOpen }) {
+export default function WeekPlanner({ tasks, toggle, remove, move, worked, onOpen }) {
   const [mode, setMode] = useState('week')                 // 'week' | 'month'
   const [anchor, setAnchor] = useState(() => new Date())    // the week / month being looked at
   const [filter, setFilter] = useState(ALL)                 // class filter
@@ -295,7 +298,7 @@ export default function WeekPlanner({ tasks, toggle, remove, move, onOpen }) {
               <button type="button" className="link" onClick={() => setPopup(null)} aria-label="Close">×</button>
             </div>
             <Column title={popup.toLocaleDateString(undefined, { weekday: 'long' })} dates={[popup]} tasks={visible}
-              toggle={toggle} remove={remove} move={move} onOpen={t => { setPopup(null); onOpen(t) }} full />
+              toggle={toggle} remove={remove} move={move} worked={worked} onOpen={t => { setPopup(null); onOpen(t) }} full />
           </div>
         </div>,
         document.body,

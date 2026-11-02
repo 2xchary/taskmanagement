@@ -346,7 +346,7 @@
    "id": "cyber",
    "kind": "theme",
    "name": "Cybercore",
-   "price": 700,
+   "price": 600,
    "sort": 24,
    "exclusive": false
   },
@@ -354,7 +354,7 @@
    "id": "phantom",
    "kind": "theme",
    "name": "Phantom Heist",
-   "price": 700,
+   "price": 600,
    "sort": 27,
    "exclusive": false
   },
@@ -362,7 +362,7 @@
    "id": "scrap",
    "kind": "theme",
    "name": "Scrapbook",
-   "price": 700,
+   "price": 600,
    "sort": 25,
    "exclusive": false
   },
@@ -370,7 +370,7 @@
    "id": "clay",
    "kind": "theme",
    "name": "Clay Pop",
-   "price": 700,
+   "price": 600,
    "sort": 21,
    "exclusive": false
   },
@@ -378,7 +378,7 @@
    "id": "brutal",
    "kind": "theme",
    "name": "Neo Brutal",
-   "price": 700,
+   "price": 600,
    "sort": 22,
    "exclusive": false
   },
@@ -386,7 +386,7 @@
    "id": "wabi",
    "kind": "theme",
    "name": "Wabi-Sabi",
-   "price": 700,
+   "price": 600,
    "sort": 23,
    "exclusive": false
   },
