@@ -5315,11 +5315,13 @@ button.feed-section-head .caret { flex: none; }
 
 /* ---- buttons: primary = solid accent, secondary = the capsule ---- */
 :root[data-theme='nostalgic'] button:not(.link):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab):not(.settings-btn):not(.mail-btn):not(.help-btn):not(.worked-btn):not(.flag-banner):not(.still-yes):not(.picker-close):not(.swatch):not(.seg-btn):not(.pip-btn):not(.tabs button):not(.seg button):not(.secondary) {
-  background: var(--accent); color: #ffffff; border: 0; border-radius: 30px; font-weight: 800; letter-spacing: .01em;
+  background: color-mix(in srgb, var(--accent) 86%, transparent); color: #ffffff; border: 1px solid rgba(255, 255, 255, .35); border-radius: 30px; font-weight: 800; letter-spacing: .01em;
   box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 42%, transparent);
 }
 :root[data-theme='nostalgic'] button:not(.link):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab):not(.settings-btn):not(.mail-btn):not(.help-btn):not(.worked-btn):not(.flag-banner):not(.still-yes):not(.picker-close):not(.swatch):not(.seg-btn):not(.pip-btn):not(.tabs button):not(.seg button):not(.secondary):hover:not(:disabled) { filter: brightness(1.08); }
 :root[data-theme='nostalgic'] button:focus-visible { outline: 4px solid var(--accent); outline-offset: 2px; }
+/* every button is frosted: the shapes and glow behind it are blurred through it */
+:root[data-theme='nostalgic'] button:not(.link):not(.task-main):not(.swatch):not(.picker-close) { -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4); }
 :root[data-theme='nostalgic'] button.secondary {
   display: inline-flex; align-items: center; justify-content: center; gap: .55rem; position: relative;
   min-height: 46px; padding: .35rem 1.3rem .35rem .45rem; border-radius: 999px; font-weight: 800; color: var(--text); font-size: 1rem;
@@ -5411,7 +5413,8 @@ button.feed-section-head .caret { flex: none; }
 .sp.sp[data-pack='nostalgic'] .card { position: relative; isolation: auto; transform: none; rotate: none; translate: none; clip-path: none; filter: none; outline: none; margin: 0; }
 .sp.sp[data-pack='nostalgic'] h3 { display: block; background: none; color: var(--text); clip-path: none; rotate: none; padding: 0; margin: 0; text-transform: none; letter-spacing: 0; border: 0; font-weight: 900; }
 .sp.sp[data-pack='nostalgic'] button { transform: none; rotate: none; translate: none; scale: none; filter: none; clip-path: none; min-height: 0; margin: 0; padding: .3rem .8rem; font-size: .76rem; text-transform: none; letter-spacing: 0; }
-.sp.sp[data-pack='nostalgic'] button:not(.secondary) { background: var(--accent); color: #ffffff; border: 0; border-radius: 30px; font-weight: 800; box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 42%, transparent); }
+.sp.sp[data-pack='nostalgic'] button { -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4); }
+.sp.sp[data-pack='nostalgic'] button:not(.secondary) { background: color-mix(in srgb, var(--accent) 86%, transparent); color: #ffffff; border: 1px solid rgba(255, 255, 255, .35); border-radius: 30px; font-weight: 800; box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 42%, transparent); }
 .sp.sp[data-pack='nostalgic'] button.secondary { display: inline-flex; align-items: center; gap: .4rem; border-radius: 999px; font-weight: 800; color: var(--text); background: linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(238, 244, 250, .46)); border: 1px solid rgba(255, 255, 255, .85); outline: 2px solid var(--edge); outline-offset: -2px; box-shadow: 0 4px 12px rgba(30, 80, 130, .2); }
 .sp.sp[data-pack='nostalgic'] button.secondary { padding: .2rem .8rem .2rem .25rem; gap: .35rem; }
 .sp.sp[data-pack='nostalgic'] button.secondary::before { content: ''; flex: none; width: 1.4em; height: 1.4em; border-radius: 50%; background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 62%, #fff), var(--accent)); }
