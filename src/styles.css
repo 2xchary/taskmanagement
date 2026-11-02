@@ -5256,12 +5256,12 @@ button.feed-section-head .caret { flex: none; }
   color-scheme: light;
   --text: #1f2d3d; --muted: #46566a; --accent: #1a6db8; --accent-2: #0e7f86; --on-accent: #ffffff; --danger: #b3261e;
   --edge: #6f89a6;
-  --glass: rgba(255, 255, 255, .76); --glass-inner: rgba(236, 244, 251, .8); --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(95, 125, 160, .5);
+  --glass: rgba(255, 255, 255, .62); --glass-inner: rgba(236, 244, 251, .68); --glass-field: rgba(255, 255, 255, .8); --glass-strong: rgba(255, 255, 255, .86); --glass-line: rgba(95, 125, 160, .5);
   --glass-shadow: 0 10px 34px rgba(60, 100, 150, .14);
-  --blur: 0px; --r: 20px; --sky-1: #cfe3f5; --sky-2: #eaf1f8;
+  --blur: 12px; --r: 20px; --sky-1: #cfe3f5; --sky-2: #eaf1f8;
   --font: 'Nunito', system-ui, sans-serif; --font-head: 'Nunito', system-ui, sans-serif; --head-weight: 900; --head-scale: 1;
   --card-shape: 30px; --tile-shape: 22px; --btn-shape: 999px; --field-shape: 18px; --dock-shape: 50%;
-  --accent: #1a6db8; --accent-2: #0e7f86; --edge: #6f89a6; --glass-inner: rgba(236, 244, 251, .8); --sky-1: #cfe3f5; --sky-2: #eaf1f8;
+  --accent: #1a6db8; --accent-2: #0e7f86; --edge: #6f89a6; --glass-inner: rgba(236, 244, 251, .68); --sky-1: #cfe3f5; --sky-2: #eaf1f8;
   --nm-s1: #4f95d6; --nm-s2: #46a8c4; --nm-s3: #6aa6e0; --nm-bg2: #e4eef9; --nm-bg3: #cde0f3; --nm-tint: rgba(88, 150, 214, .16); --nm-ledge: rgba(120, 160, 205, .42);
 }
 /* ---- the page: soft white-to-sky glow with 12 faint shapes drifting slowly (transform and opacity only) ---- */
@@ -5363,8 +5363,12 @@ button.feed-section-head .caret { flex: none; }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) input[type='checkbox'], :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) input[type='radio'] { accent-color: var(--accent); }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) .me-plate { background: rgba(255, 255, 255, .62); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: var(--text); border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 999px; font-weight: 800; }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) .timer-chip { background: var(--accent); color: #ffffff !important; border: 0; border-radius: 999px; font-weight: 800; }
-:root[data-theme='nostalgic'] .modal.card { background: #ffffff; border-radius: 30px; box-shadow: 0 24px 70px rgba(40, 80, 130, .3); }
+:root[data-theme='nostalgic'] .modal.card { background: rgba(255, 255, 255, .86); -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3); border-radius: 30px; box-shadow: 0 24px 70px rgba(40, 80, 130, .3); }
 :root[data-theme='nostalgic'] .tag { border-radius: 999px; }
+/* text that sits straight on the page (not in a card) gets a soft light halo so the grid and shapes never fight it */
+:root[data-theme='nostalgic'] main :is(h2, h3, label, p, small, .muted, .check, span):not(.card *):not(button *):not(.fancy-name):not(.tag):not(.status-pill) { text-shadow: 0 0 8px rgba(255, 255, 255, .95), 0 0 2px rgba(255, 255, 255, .9); }
+:root[data-theme='nostalgic'] main h1:not(.card h1) { filter: drop-shadow(0 0 8px rgba(255, 255, 255, .95)); }
+:root[data-theme='nostalgic'] :is(.tabs, .seg) { background: var(--glass); -webkit-backdrop-filter: blur(12px) saturate(1.3); backdrop-filter: blur(12px) saturate(1.3); }
 :root[data-theme='nostalgic'] .mini-day { border-radius: 20px; }
 :root[data-theme='nostalgic'] .mini-day.out { opacity: .75; color: var(--muted); }
 :root[data-theme='nostalgic'] .wk-tile { background: var(--glass-inner); border-color: var(--glass-line); }
@@ -5401,24 +5405,24 @@ button.feed-section-head .caret { flex: none; }
   color-scheme: light;
   --text: #1f2d3d; --muted: #46566a; --accent: #1a6db8; --accent-2: #0e7f86; --on-accent: #ffffff; --danger: #b3261e;
   --edge: #6f89a6;
-  --glass: rgba(255, 255, 255, .76); --glass-inner: rgba(236, 244, 251, .8); --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(95, 125, 160, .5);
+  --glass: rgba(255, 255, 255, .62); --glass-inner: rgba(236, 244, 251, .68); --glass-field: rgba(255, 255, 255, .8); --glass-strong: rgba(255, 255, 255, .86); --glass-line: rgba(95, 125, 160, .5);
   --glass-shadow: 0 10px 34px rgba(60, 100, 150, .14);
-  --blur: 0px; --r: 20px; --sky-1: #cfe3f5; --sky-2: #eaf1f8;
+  --blur: 12px; --r: 20px; --sky-1: #cfe3f5; --sky-2: #eaf1f8;
   --font: 'Nunito', system-ui, sans-serif; --font-head: 'Nunito', system-ui, sans-serif; --head-weight: 900; --head-scale: 1;
   --card-shape: 30px; --tile-shape: 22px; --btn-shape: 999px; --field-shape: 18px; --dock-shape: 50%;
-  --accent: #1a6db8; --accent-2: #0e7f86; --edge: #6f89a6; --glass-inner: rgba(236, 244, 251, .8); --sky-1: #cfe3f5; --sky-2: #eaf1f8;
+  --accent: #1a6db8; --accent-2: #0e7f86; --edge: #6f89a6; --glass-inner: rgba(236, 244, 251, .68); --sky-1: #cfe3f5; --sky-2: #eaf1f8;
   --nm-s1: #4f95d6; --nm-s2: #46a8c4; --nm-s3: #6aa6e0; --nm-bg2: #e4eef9; --nm-bg3: #cde0f3; --nm-tint: rgba(88, 150, 214, .16); --nm-ledge: rgba(120, 160, 205, .42);
 }
 :is(:root[data-theme='nostalgic'][data-accent='red'], .sp[data-pack='nostalgic'][data-accent='red']) {
-  --accent: #c0262d; --accent-2: #d9622b; --edge: #a37a80; --glass-inner: rgba(253, 238, 238, .8); --sky-1: #f7d6d8; --sky-2: #fcf0f0;
+  --accent: #c0262d; --accent-2: #d9622b; --edge: #a37a80; --glass-inner: rgba(253, 238, 238, .68); --sky-1: #f7d6d8; --sky-2: #fcf0f0;
   --nm-s1: #e8777c; --nm-s2: #f0a07a; --nm-s3: #e6828f; --nm-bg2: #fbecec; --nm-bg3: #f3d3d5; --nm-tint: rgba(214, 88, 98, .16); --nm-ledge: rgba(205, 128, 134, .42);
 }
 :is(:root[data-theme='nostalgic'][data-accent='yellow'], .sp[data-pack='nostalgic'][data-accent='yellow']) {
-  --accent: #9c6200; --accent-2: #c98a00; --edge: #a08a58; --glass-inner: rgba(253, 246, 226, .82); --sky-1: #f8e9bd; --sky-2: #fdf6e0;
+  --accent: #9c6200; --accent-2: #c98a00; --edge: #a08a58; --glass-inner: rgba(253, 246, 226, .7); --sky-1: #f8e9bd; --sky-2: #fdf6e0;
   --nm-s1: #f2c230; --nm-s2: #f5d663; --nm-s3: #eaa94a; --nm-bg2: #fdf4dc; --nm-bg3: #f4e2b0; --nm-tint: rgba(214, 170, 40, .2); --nm-ledge: rgba(205, 165, 85, .45);
 }
 :is(:root[data-theme='nostalgic'][data-accent='green'], .sp[data-pack='nostalgic'][data-accent='green']) {
-  --accent: #17703a; --accent-2: #1f8a8a; --edge: #6f9a82; --glass-inner: rgba(236, 248, 241, .8); --sky-1: #cdeadb; --sky-2: #eaf6ef;
+  --accent: #17703a; --accent-2: #1f8a8a; --edge: #6f9a82; --glass-inner: rgba(236, 248, 241, .68); --sky-1: #cdeadb; --sky-2: #eaf6ef;
   --nm-s1: #5cb97f; --nm-s2: #46b3a0; --nm-s3: #8ccf9a; --nm-bg2: #e6f5ec; --nm-bg3: #cfe9da; --nm-tint: rgba(70, 170, 110, .18); --nm-ledge: rgba(105, 172, 138, .42);
 }
 .sp.sp[data-pack='nostalgic'] .card { background: var(--glass); border: 1px solid #ffffff; border-radius: 30px; box-shadow: 0 6px 0 var(--nm-ledge), 0 14px 30px rgba(60, 100, 150, .14), inset 0 0 0 1px rgba(255, 255, 255, .9); -webkit-backdrop-filter: none; backdrop-filter: none; }
