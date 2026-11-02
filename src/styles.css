@@ -5256,7 +5256,7 @@ button.feed-section-head .caret { flex: none; }
   color-scheme: light;
   --text: #1f2d3d; --muted: #5b6b7c; --accent: #1a6db8; --accent-2: #0e7f86; --on-accent: #ffffff; --danger: #b3261e;
   --edge: #6f89a6;
-  --glass: rgba(255, 255, 255, .92); --glass-inner: #eef4fa; --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(111, 137, 166, .32);
+  --glass: rgba(255, 255, 255, .78); --glass-inner: #eef4fa; --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(111, 137, 166, .32);
   --glass-shadow: 0 10px 34px rgba(60, 100, 150, .14);
   --blur: 0px; --r: 20px; --sky-1: #cfe3f5; --sky-2: #eaf1f8;
   --font: 'Nunito', system-ui, sans-serif; --font-head: 'Nunito', system-ui, sans-serif; --head-weight: 900; --head-scale: 1;
@@ -5313,7 +5313,7 @@ button.feed-section-head .caret { flex: none; }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary {
   display: inline-flex; align-items: center; justify-content: center; gap: .55rem; position: relative;
   min-height: 46px; padding: .35rem 1.3rem .35rem .45rem; border-radius: 999px; font-weight: 800; color: var(--text); font-size: 1rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, .92), rgba(238, 245, 252, .86));
+  background: linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(238, 245, 252, .46));
   border: 1px solid rgba(255, 255, 255, .95); outline: 2px solid var(--edge); outline-offset: -2px;
   box-shadow: 0 6px 20px rgba(30, 80, 130, .2), inset 0 -3px 0 color-mix(in srgb, var(--accent) 14%, transparent);
   -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4);
@@ -5325,12 +5325,12 @@ button.feed-section-head .caret { flex: none; }
   box-shadow: 0 3px 10px color-mix(in srgb, var(--accent) 45%, transparent), inset 0 1px 0 rgba(255, 255, 255, .55);
 }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary[aria-label] { padding: .35rem .9rem; }
-:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary:hover:not(:disabled) { transform: translateY(-3px); scale: 1; filter: none; background: linear-gradient(180deg, #fff, #f2f8fd); box-shadow: 0 10px 26px rgba(30, 80, 130, .28), 0 0 0 3px var(--accent); }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary:hover:not(:disabled) { transform: translateY(-3px); scale: 1; filter: none; background: linear-gradient(180deg, rgba(255, 255, 255, .86), rgba(242, 248, 253, .74)); box-shadow: 0 10px 26px rgba(30, 80, 130, .28), 0 0 0 3px var(--accent); }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary:active:not(:disabled) { transform: scale(.95); }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary:focus-visible { outline: 4px solid var(--accent); outline-offset: 2px; }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button:disabled { opacity: .55; }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.settings-btn, .mail-btn, .help-btn) {
-  width: 44px; height: 44px; padding: 0; display: inline-grid; place-items: center; border-radius: 50%; background: var(--glass-strong); color: var(--accent);
+  width: 44px; height: 44px; padding: 0; display: inline-grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, .6); -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4); color: var(--accent);
   border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; box-shadow: 0 6px 18px rgba(30, 80, 130, .2);
 }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.settings-btn, .mail-btn, .help-btn):hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(30, 80, 130, .28), 0 0 0 3px var(--accent); }
@@ -5338,11 +5338,11 @@ button.feed-section-head .caret { flex: none; }
 
 /* ---- fields ---- */
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) input:not([type='checkbox']):not([type='radio']):not([type='file']), :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) textarea, :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) select {
-  background: #ffffff; color: var(--text); border: 2px solid rgba(111, 137, 166, .6); border-radius: 18px; box-shadow: none;
+  background: rgba(255, 255, 255, .66); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: var(--text); border: 2px solid rgba(111, 137, 166, .6); border-radius: 18px; box-shadow: none;
 }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) input:focus, :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) textarea:focus, :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); outline: none; }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) input[type='checkbox'], :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) input[type='radio'] { accent-color: var(--accent); }
-:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) .me-plate { background: #ffffff; color: var(--text); border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 999px; font-weight: 800; }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) .me-plate { background: rgba(255, 255, 255, .62); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: var(--text); border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 999px; font-weight: 800; }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) .timer-chip { background: var(--accent); color: #ffffff !important; border: 0; border-radius: 999px; font-weight: 800; }
 :root[data-theme='nostalgic'] .modal.card { background: #ffffff; border-radius: 30px; box-shadow: 0 24px 70px rgba(40, 80, 130, .3); }
 :root[data-theme='nostalgic'] .tag { border-radius: 999px; }
@@ -5355,12 +5355,13 @@ button.feed-section-head .caret { flex: none; }
 }
 :root[data-theme='nostalgic'] .dock {
   flex-direction: row; align-items: center; gap: 1rem; padding: .6rem 1.7rem .7rem; border-radius: 64px 64px 30px 30px / 44px 44px 30px 30px;
-  background: #ffffff; border: 1px solid #ffffff; box-shadow: 0 -4px 30px rgba(60, 100, 150, .2), 0 10px 34px rgba(60, 100, 150, .16);
-  -webkit-backdrop-filter: none; backdrop-filter: none;
+  background: rgba(255, 255, 255, .58); border: 1px solid rgba(255, 255, 255, .85); box-shadow: 0 -4px 30px rgba(60, 100, 150, .16), 0 10px 34px rgba(60, 100, 150, .14);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4);
 }
 :root[data-theme='nostalgic'] .dock a {
-  width: 56px; height: 56px; opacity: 1; color: var(--accent); background: linear-gradient(180deg, #ffffff, #eef4fa);
-  border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; box-shadow: 0 5px 14px rgba(30, 80, 130, .2); transform-origin: 50% 100%;
+  width: 56px; height: 56px; opacity: 1; color: var(--accent); background: linear-gradient(180deg, rgba(255, 255, 255, .7), rgba(238, 244, 250, .5));
+  -webkit-backdrop-filter: blur(10px) saturate(1.4); backdrop-filter: blur(10px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, .85); outline: 2px solid var(--edge); outline-offset: -2px; box-shadow: 0 5px 14px rgba(30, 80, 130, .2); transform-origin: 50% 100%;
 }
 :root[data-theme='nostalgic'] .dock a .icon { stroke-width: 2.1; }
 :root[data-theme='nostalgic'] .dock a:hover, :root[data-theme='nostalgic'] .dock a:focus-visible { scale: 1.08; translate: 0 -5px; box-shadow: 0 10px 22px rgba(30, 80, 130, .28), 0 0 0 3px var(--accent); }
@@ -5371,7 +5372,7 @@ button.feed-section-head .caret { flex: none; }
 :root[data-theme='nostalgic'] .dock a.active::before { left: 50%; top: auto; bottom: -9px; margin: 0 0 0 -3px; width: 6px; height: 6px; background: var(--accent); box-shadow: none; }
 :root[data-theme='nostalgic'] .dock a::after {
   left: 50%; top: auto; bottom: calc(100% + 14px); scale: 1; translate: -50% 4px; transform-origin: 50% 100%;
-  background: #ffffff; color: var(--text); border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 999px; font-weight: 800;
+  background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: var(--text); border: 1px solid rgba(255, 255, 255, .9); outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 999px; font-weight: 800;
 }
 :root[data-theme='nostalgic'] .dock a:hover::after, :root[data-theme='nostalgic'] .dock a:focus-visible::after { translate: -50% 0; }
 .shelf-clock { display: none; }
@@ -5380,7 +5381,7 @@ button.feed-section-head .caret { flex: none; }
 :root[data-theme='nostalgic'] .shelf-clock small { color: var(--muted); font-weight: 700; font-size: .78rem; }
 @media (max-width: 700px) {
   :root[data-theme='nostalgic'] .tabbar .liquid { display: none; }
-  :root[data-theme='nostalgic'] .tabbar { background: #ffffff; border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 36px 36px 28px 28px / 28px 28px 28px 28px; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: 0 10px 34px rgba(60, 100, 150, .22); }
+  :root[data-theme='nostalgic'] .tabbar { background: rgba(255, 255, 255, .62); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); border: 1px solid rgba(255, 255, 255, .85); outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 36px 36px 28px 28px / 28px 28px 28px 28px; box-shadow: 0 10px 34px rgba(60, 100, 150, .22); }
   :root[data-theme='nostalgic'] .tabbar a { color: var(--muted); text-shadow: none; font-weight: 800; }
   :root[data-theme='nostalgic'] .tabbar a .icon { filter: none; }
   :root[data-theme='nostalgic'] .tabbar a.active { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, #ffffff); border-radius: 24px; margin: 6px 2px; height: 58px; padding-top: 7px; }
@@ -5391,7 +5392,7 @@ button.feed-section-head .caret { flex: none; }
   color-scheme: light;
   --text: #1f2d3d; --muted: #5b6b7c; --accent: #1a6db8; --accent-2: #0e7f86; --on-accent: #ffffff; --danger: #b3261e;
   --edge: #6f89a6;
-  --glass: rgba(255, 255, 255, .92); --glass-inner: #eef4fa; --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(111, 137, 166, .32);
+  --glass: rgba(255, 255, 255, .78); --glass-inner: #eef4fa; --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(111, 137, 166, .32);
   --glass-shadow: 0 10px 34px rgba(60, 100, 150, .14);
   --blur: 0px; --r: 20px; --sky-1: #cfe3f5; --sky-2: #eaf1f8;
   --font: 'Nunito', system-ui, sans-serif; --font-head: 'Nunito', system-ui, sans-serif; --head-weight: 900; --head-scale: 1;
@@ -5400,7 +5401,7 @@ button.feed-section-head .caret { flex: none; }
 .sp.sp[data-pack='nostalgic'] .card { background: var(--glass); border: 1px solid #ffffff; border-radius: 30px; box-shadow: 0 10px 34px rgba(60, 100, 150, .14); -webkit-backdrop-filter: none; backdrop-filter: none; }
 .sp.sp[data-pack='nostalgic'] h3 { font-weight: 900; }
 .sp.sp[data-pack='nostalgic'] button:not(.secondary) { background: var(--accent); color: #ffffff; border: 0; border-radius: 30px; font-weight: 800; box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 42%, transparent); }
-.sp.sp[data-pack='nostalgic'] button.secondary { display: inline-flex; align-items: center; gap: .4rem; border-radius: 999px; font-weight: 800; color: var(--text); background: linear-gradient(180deg, #ffffff, #eef4fa); border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; box-shadow: 0 4px 12px rgba(30, 80, 130, .2); }
+.sp.sp[data-pack='nostalgic'] button.secondary { display: inline-flex; align-items: center; gap: .4rem; border-radius: 999px; font-weight: 800; color: var(--text); background: linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(238, 244, 250, .46)); border: 1px solid rgba(255, 255, 255, .85); outline: 2px solid var(--edge); outline-offset: -2px; box-shadow: 0 4px 12px rgba(30, 80, 130, .2); }
 .sp.sp[data-pack='nostalgic'] button.secondary::before { content: ''; width: 1.3em; height: 1.3em; border-radius: 50%; background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 62%, #fff), var(--accent)); }
 .sp.sp[data-pack='nostalgic'] input:not([type='checkbox']):not([type='radio']) { background: #ffffff; color: var(--text); border: 2px solid rgba(111, 137, 166, .6); border-radius: 18px; box-shadow: none; }
 .sp.sp[data-pack='nostalgic'] .me-plate, .sp.sp[data-pack='nostalgic'] .timer-chip { background: #ffffff; color: var(--text); border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 999px; }
