@@ -36,6 +36,7 @@ export const SOUND_PACKS = {
   cyber: 'cyber',
   scrap: 'scrap',
   phantom: 'phantom',
+  nostalgic: 'nostalgic',
 }
 // Only the understated packs are offered. The bright, bleepy ones are left out on purpose.
 export const PACK_LABELS = { ...(HAS_CRISP ? { crisp: 'Crisp UI' } : {}), aero: 'Aero bubbles', minimal: 'Minimal', soft: 'Soft', studio: 'Studio', zen: 'Zen', organic: 'Organic' }

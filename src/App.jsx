@@ -40,6 +40,8 @@ import TimerOverlay from './components/TimerOverlay.jsx'
 import UpdateNotice from './components/UpdateNotice.jsx'
 import PipTimer from './components/PipTimer.jsx'
 import StillStudying from './components/StillStudying.jsx'
+import ShelfClock from './components/ShelfClock.jsx'
+import { useTheme } from './lib/theme.jsx'
 import StudyFlagAlert from './components/StudyFlags.jsx'
 import { publicUrl } from './lib/storage.js'
 import { APP_TITLE, IS_ADMIN, IS_DEV_BUILD, IS_FAKE } from './lib/env.js'
@@ -67,6 +69,7 @@ export default function App() {
   const { xp, level } = useMyXp()
   const { balance } = useShop()
   const sound = useSound()
+  const { theme } = useTheme()
   const { pathname } = useLocation()
   const [me, setMe] = useState(null)
   const [pressed, setPressed] = useState(null) // tab being pressed right now (moves the liquid blob at once)
@@ -105,6 +108,8 @@ export default function App() {
   }, [user?.id]) // eslint-disable-line
 
   useEffect(() => { setPressed(null) }, [pathname])
+  // which screen is open, so a look can give each section its own accent (Nostalgic Menu does)
+  useEffect(() => { document.documentElement.dataset.screen = pathname.split('/')[1] || 'home' }, [pathname])
   useEffect(() => { document.title = APP_TITLE }, [])   // tells the dev builds apart in the tab strip
 
   const activeIdx = TABS.findIndex(t =>
@@ -145,6 +150,7 @@ export default function App() {
                 {tabFace(t, t.profile ? 38 : 26)}
               </NavLink>
             ))}
+            {theme === 'nostalgic' && <ShelfClock />}
           </nav>
         </aside>
       )}

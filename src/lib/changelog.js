@@ -3,6 +3,12 @@
 // { version, date: 'YYYY-MM-DD', title, points: [short bullet, ...] }
 export const CHANGELOG = [
   {
+    version: '2.57', date: '2026-11-02', title: 'Nostalgic Menu style pack',
+    points: [
+      'A new Style pack in the Shop, 600 coins: a bright, soft game-menu look with frosted white glass, a gradient title, capsule buttons with a glossy coloured dot, a shelf bar with the clock along the bottom, shapes drifting slowly behind, and its own soft sounds.',
+    ],
+  },
+  {
     version: '2.56', date: '2026-11-02', title: 'Did my work, and Still studying?',
     points: [
       'Each work day on your planner now has a separate "Did my work?" button, so you can say you did what you planned without finishing the whole task.',

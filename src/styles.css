@@ -5250,3 +5250,159 @@ button.feed-section-head .caret { flex: none; }
 .study-flag.resolved { opacity: .7; }
 .study-flag-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
 .study-flag-true input { width: 5rem; }
+
+/* ---- Nostalgic Menu: a bright, soft game-menu look. Frosted white glass, capsule buttons with a glossy dot, a gradient title, a shelf bar, shapes drifting behind. Original art, not copied from any console ---- */
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) {
+  color-scheme: light;
+  --text: #1f2d3d; --muted: #5b6b7c; --accent: #1a6db8; --accent-2: #0e7f86; --on-accent: #ffffff; --danger: #b3261e;
+  --edge: #6f89a6;
+  --glass: rgba(255, 255, 255, .92); --glass-inner: #eef4fa; --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(111, 137, 166, .32);
+  --glass-shadow: 0 10px 34px rgba(60, 100, 150, .14);
+  --blur: 0px; --r: 20px; --sky-1: #cfe3f5; --sky-2: #eaf1f8;
+  --font: 'Nunito', system-ui, sans-serif; --font-head: 'Nunito', system-ui, sans-serif; --head-weight: 900; --head-scale: 1;
+  --card-shape: 30px; --tile-shape: 22px; --btn-shape: 999px; --field-shape: 18px; --dock-shape: 50%;
+}
+/* each section gets one accent (set from the open page by App.jsx: data-screen) */
+:root[data-theme='nostalgic'][data-screen='todo'], :root[data-theme='nostalgic'][data-screen='profile'] { --accent: #a84c0a; --accent-2: #b9780f; }
+:root[data-theme='nostalgic'][data-screen='feed'], :root[data-theme='nostalgic'][data-screen='shop'] { --accent: #17703a; --accent-2: #0e7f86; }
+
+/* ---- the page: soft white-to-sky glow with 12 faint shapes drifting slowly (transform and opacity only) ---- */
+:root[data-theme='nostalgic'] .scene { background: radial-gradient(circle at 50% 36%, #ffffff, #eaf1f8 80%); }
+:root[data-theme='nostalgic'] .scene .g1, :root[data-theme='nostalgic'] .scene .g2 { display: none; }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(n+13) { display: none; }
+:root[data-theme='nostalgic'] .scene span {
+  --c: #1a6db8; --s: 70px; --dx: 5vw; --dy: -6vh; --rot: 40deg;
+  left: var(--x); top: var(--y); width: var(--s); height: var(--s); opacity: .5; filter: blur(3px);
+  background: color-mix(in srgb, var(--c) 20%, transparent); border: 0; border-radius: 0; box-shadow: none;
+  animation: nm-drift 52s ease-in-out calc(var(--i) * -5s) infinite alternate;
+}
+:root[data-theme='nostalgic'] .scene span:nth-of-type(3n+2) { --c: #0e7f86; --s: 100px; --dx: -4vw; --dy: 5vh; --rot: -50deg; animation-duration: 64s; }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(3n) { --c: #c4690f; --s: 130px; --dx: 3vw; --dy: 7vh; --rot: 70deg; animation-duration: 76s; }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+1) { border-radius: 50%; }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+2) { border-radius: 50%; background: none; border: 9px solid color-mix(in srgb, var(--c) 24%, transparent); }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+3) { clip-path: polygon(50% 8%, 96% 90%, 4% 90%); }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+4) { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+5) { background: linear-gradient(color-mix(in srgb, var(--c) 24%, transparent), color-mix(in srgb, var(--c) 24%, transparent)) center / 100% 24% no-repeat, linear-gradient(color-mix(in srgb, var(--c) 24%, transparent), color-mix(in srgb, var(--c) 24%, transparent)) center / 24% 100% no-repeat; }
+@keyframes nm-drift { to { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rot)); } }
+@media (prefers-reduced-motion: reduce) { :root[data-theme='nostalgic'] .scene span { animation: none; } :root[data-theme='nostalgic'] .page > * { animation: none; } }
+:root[data-theme='nostalgic'][data-motion='reduced'] .scene span, :root[data-theme='nostalgic'][data-motion='reduced'] .page > * { animation: none; }
+/* screens ease in */
+:root[data-theme='nostalgic'] .page > * { animation: nm-enter .45s cubic-bezier(.34, 1.5, .5, 1) backwards; }
+@keyframes nm-enter { from { opacity: 0; transform: translateY(18px) scale(.985); } }
+
+/* ---- glass cards: flat (no blur on big areas), soft shadow, big corners ---- */
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.card, .profile-head) {
+  background: var(--glass); border: 1px solid #ffffff; border-radius: 30px; box-shadow: 0 10px 34px rgba(60, 100, 150, .14);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) h1:not(:has(.fancy-name)) {
+  font-weight: 900; letter-spacing: -.02em; line-height: 1.1;
+  background: linear-gradient(90deg, #1a6db8, #0e7f86); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+}
+:root[data-theme='nostalgic'] h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) h2 { font-weight: 900; letter-spacing: -.01em; }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) h3 { font-weight: 800; }
+
+/* ---- buttons: primary = solid accent, secondary = the capsule ---- */
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button:not(.link):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab):not(.settings-btn):not(.mail-btn):not(.help-btn):not(.worked-btn):not(.flag-banner):not(.still-yes):not(.picker-close):not(.swatch):not(.seg-btn):not(.pip-btn):not(.tabs button):not(.seg button):not(.secondary) {
+  background: var(--accent); color: #ffffff; border: 0; border-radius: 30px; font-weight: 800; letter-spacing: .01em;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 42%, transparent);
+}
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button:not(.link):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab):not(.settings-btn):not(.mail-btn):not(.help-btn):not(.worked-btn):not(.flag-banner):not(.still-yes):not(.picker-close):not(.swatch):not(.seg-btn):not(.pip-btn):not(.tabs button):not(.seg button):not(.secondary):hover:not(:disabled) { filter: brightness(1.08); }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button:focus-visible { outline: 4px solid var(--accent); outline-offset: 2px; }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: .55rem; position: relative;
+  min-height: 46px; padding: .35rem 1.3rem .35rem .45rem; border-radius: 999px; font-weight: 800; color: var(--text); font-size: 1rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .92), rgba(238, 245, 252, .86));
+  border: 1px solid rgba(255, 255, 255, .95); outline: 2px solid var(--edge); outline-offset: -2px;
+  box-shadow: 0 6px 20px rgba(30, 80, 130, .2), inset 0 -3px 0 color-mix(in srgb, var(--accent) 14%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4);
+  transition: transform .18s cubic-bezier(.34, 1.5, .5, 1), box-shadow .2s;
+}
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary:not([aria-label])::before {
+  content: ''; flex: none; width: 1.7em; height: 1.7em; border-radius: 50%;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 62%, #fff), var(--accent));
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--accent) 45%, transparent), inset 0 1px 0 rgba(255, 255, 255, .55);
+}
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary[aria-label] { padding: .35rem .9rem; }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary:hover:not(:disabled) { transform: translateY(-3px); scale: 1; filter: none; background: linear-gradient(180deg, #fff, #f2f8fd); box-shadow: 0 10px 26px rgba(30, 80, 130, .28), 0 0 0 3px var(--accent); }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary:active:not(:disabled) { transform: scale(.95); }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button.secondary:focus-visible { outline: 4px solid var(--accent); outline-offset: 2px; }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button:disabled { opacity: .55; }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.settings-btn, .mail-btn, .help-btn) {
+  width: 44px; height: 44px; padding: 0; display: inline-grid; place-items: center; border-radius: 50%; background: var(--glass-strong); color: var(--accent);
+  border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; box-shadow: 0 6px 18px rgba(30, 80, 130, .2);
+}
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.settings-btn, .mail-btn, .help-btn):hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(30, 80, 130, .28), 0 0 0 3px var(--accent); }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.settings-btn, .mail-btn, .help-btn):focus-visible { outline: 4px solid var(--accent); outline-offset: 2px; }
+
+/* ---- fields ---- */
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) input:not([type='checkbox']):not([type='radio']):not([type='file']), :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) textarea, :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) select {
+  background: #ffffff; color: var(--text); border: 2px solid rgba(111, 137, 166, .6); border-radius: 18px; box-shadow: none;
+}
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) input:focus, :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) textarea:focus, :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); outline: none; }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) input[type='checkbox'], :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) input[type='radio'] { accent-color: var(--accent); }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) .me-plate { background: #ffffff; color: var(--text); border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 999px; font-weight: 800; }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) .timer-chip { background: var(--accent); color: #ffffff !important; border: 0; border-radius: 999px; font-weight: 800; }
+:root[data-theme='nostalgic'] .modal.card { background: #ffffff; border-radius: 30px; box-shadow: 0 24px 70px rgba(40, 80, 130, .3); }
+:root[data-theme='nostalgic'] .tag { border-radius: 999px; }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) .swatch { border-radius: 50%; }
+
+/* ---- the shelf: a wide curved white bar along the bottom with round buttons and the clock ---- */
+@media (min-width: 701px) {
+  :root[data-theme='nostalgic'] .dock-wrap { position: fixed; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom)); translate: -50% 0; width: auto; padding: 0; z-index: 14; }
+  :root[data-theme='nostalgic'] .page { padding-bottom: 6.6rem; }
+}
+:root[data-theme='nostalgic'] .dock {
+  flex-direction: row; align-items: center; gap: 1rem; padding: .6rem 1.7rem .7rem; border-radius: 64px 64px 30px 30px / 44px 44px 30px 30px;
+  background: #ffffff; border: 1px solid #ffffff; box-shadow: 0 -4px 30px rgba(60, 100, 150, .2), 0 10px 34px rgba(60, 100, 150, .16);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+:root[data-theme='nostalgic'] .dock a {
+  width: 56px; height: 56px; opacity: 1; color: var(--accent); background: linear-gradient(180deg, #ffffff, #eef4fa);
+  border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; box-shadow: 0 5px 14px rgba(30, 80, 130, .2); transform-origin: 50% 100%;
+}
+:root[data-theme='nostalgic'] .dock a .icon { stroke-width: 2.1; }
+:root[data-theme='nostalgic'] .dock a:hover, :root[data-theme='nostalgic'] .dock a:focus-visible { scale: 1.08; translate: 0 -5px; box-shadow: 0 10px 22px rgba(30, 80, 130, .28), 0 0 0 3px var(--accent); }
+:root[data-theme='nostalgic'] .dock a:focus-visible { outline: 4px solid var(--accent); outline-offset: 2px; }
+:root[data-theme='nostalgic'] .dock a:hover + a, :root[data-theme='nostalgic'] .dock a:has(+ a:hover), :root[data-theme='nostalgic'] .dock a:hover + a + a, :root[data-theme='nostalgic'] .dock a:has(+ a + a:hover),
+:root[data-theme='nostalgic'] .dock a:focus-visible + a, :root[data-theme='nostalgic'] .dock a:has(+ a:focus-visible) { scale: 1; translate: 0 0; opacity: 1; }
+:root[data-theme='nostalgic'] .dock a.active { background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 62%, #fff), var(--accent)); color: #ffffff; outline-color: transparent; }
+:root[data-theme='nostalgic'] .dock a.active::before { left: 50%; top: auto; bottom: -9px; margin: 0 0 0 -3px; width: 6px; height: 6px; background: var(--accent); box-shadow: none; }
+:root[data-theme='nostalgic'] .dock a::after {
+  left: 50%; top: auto; bottom: calc(100% + 14px); scale: 1; translate: -50% 4px; transform-origin: 50% 100%;
+  background: #ffffff; color: var(--text); border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 999px; font-weight: 800;
+}
+:root[data-theme='nostalgic'] .dock a:hover::after, :root[data-theme='nostalgic'] .dock a:focus-visible::after { translate: -50% 0; }
+.shelf-clock { display: none; }
+:root[data-theme='nostalgic'] .shelf-clock { display: flex; flex-direction: column; justify-content: center; margin-left: .4rem; padding-left: 1.2rem; border-left: 2px solid rgba(111, 137, 166, .3); line-height: 1.15; color: var(--text); }
+:root[data-theme='nostalgic'] .shelf-clock strong { font-size: 1.3rem; font-weight: 900; }
+:root[data-theme='nostalgic'] .shelf-clock small { color: var(--muted); font-weight: 700; font-size: .78rem; }
+@media (max-width: 700px) {
+  :root[data-theme='nostalgic'] .tabbar .liquid { display: none; }
+  :root[data-theme='nostalgic'] .tabbar { background: #ffffff; border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 36px 36px 28px 28px / 28px 28px 28px 28px; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: 0 10px 34px rgba(60, 100, 150, .22); }
+  :root[data-theme='nostalgic'] .tabbar a { color: var(--muted); text-shadow: none; font-weight: 800; }
+  :root[data-theme='nostalgic'] .tabbar a .icon { filter: none; }
+  :root[data-theme='nostalgic'] .tabbar a.active { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, #ffffff); border-radius: 24px; margin: 6px 2px; height: 58px; padding-top: 7px; }
+}
+
+/* ---- the miniature in the picker keeps this look even when another pack is the page's look ---- */
+.sp.sp[data-pack='nostalgic'] {
+  color-scheme: light;
+  --text: #1f2d3d; --muted: #5b6b7c; --accent: #1a6db8; --accent-2: #0e7f86; --on-accent: #ffffff; --danger: #b3261e;
+  --edge: #6f89a6;
+  --glass: rgba(255, 255, 255, .92); --glass-inner: #eef4fa; --glass-field: #ffffff; --glass-strong: #ffffff; --glass-line: rgba(111, 137, 166, .32);
+  --glass-shadow: 0 10px 34px rgba(60, 100, 150, .14);
+  --blur: 0px; --r: 20px; --sky-1: #cfe3f5; --sky-2: #eaf1f8;
+  --font: 'Nunito', system-ui, sans-serif; --font-head: 'Nunito', system-ui, sans-serif; --head-weight: 900; --head-scale: 1;
+  --card-shape: 30px; --tile-shape: 22px; --btn-shape: 999px; --field-shape: 18px; --dock-shape: 50%;
+}
+.sp.sp[data-pack='nostalgic'] .card { background: var(--glass); border: 1px solid #ffffff; border-radius: 30px; box-shadow: 0 10px 34px rgba(60, 100, 150, .14); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.sp.sp[data-pack='nostalgic'] h3 { font-weight: 900; }
+.sp.sp[data-pack='nostalgic'] button:not(.secondary) { background: var(--accent); color: #ffffff; border: 0; border-radius: 30px; font-weight: 800; box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 42%, transparent); }
+.sp.sp[data-pack='nostalgic'] button.secondary { display: inline-flex; align-items: center; gap: .4rem; border-radius: 999px; font-weight: 800; color: var(--text); background: linear-gradient(180deg, #ffffff, #eef4fa); border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; box-shadow: 0 4px 12px rgba(30, 80, 130, .2); }
+.sp.sp[data-pack='nostalgic'] button.secondary::before { content: ''; width: 1.3em; height: 1.3em; border-radius: 50%; background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 62%, #fff), var(--accent)); }
+.sp.sp[data-pack='nostalgic'] input:not([type='checkbox']):not([type='radio']) { background: #ffffff; color: var(--text); border: 2px solid rgba(111, 137, 166, .6); border-radius: 18px; box-shadow: none; }
+.sp.sp[data-pack='nostalgic'] .me-plate, .sp.sp[data-pack='nostalgic'] .timer-chip { background: #ffffff; color: var(--text); border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 999px; }
+.sp.sp[data-pack='nostalgic'] .sp-prog { border-color: var(--edge); background: #eef4fa; }
+.sp.sp[data-pack='nostalgic'] .sp-chips span { border-color: var(--edge); }

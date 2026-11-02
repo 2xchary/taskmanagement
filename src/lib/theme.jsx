@@ -60,6 +60,8 @@ export const THEMES = [
     preview: ['#efe2c8', '#fff8e6', '#ffd966', '#e8735a', '#5a4632'] },
   { id: 'phantom', name: 'Phantom Heist', style: true, music: 'lofi', blurb: 'Red, white and black heist style: white dialogue-box cards, bubble buttons and name-tag titles over a moving red background, with sharp stab sounds and a slow beat.',
     preview: ['#e60012', '#ffffff', '#0a0a0a', '#a8000d', '#ffe3e6'] },
+  { id: 'nostalgic', name: 'Nostalgic Menu', style: true, music: 'coffee', blurb: 'A bright, soft game-menu look: frosted white glass, a gradient title, capsule buttons with a glossy coloured dot, a shelf bar along the bottom and shapes drifting slowly behind, with soft bloopy sounds.',
+    preview: ['#eaf1f8', '#ffffff', '#1a6db8', '#0e7f86', '#a84c0a'] },
   { id: 'twilight', name: 'Twilight Sky', blurb: 'Blush clouds and a crescent moon over indigo mountains and stars.',
     preview: ['#fff1f1', '#a9b4dc', '#7885c6', '#2c3470', '#161b45'] },
 ]

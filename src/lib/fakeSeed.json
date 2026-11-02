@@ -359,6 +359,14 @@
    "exclusive": false
   },
   {
+   "id": "nostalgic",
+   "kind": "theme",
+   "name": "Nostalgic Menu",
+   "price": 600,
+   "sort": 28,
+   "exclusive": false
+  },
+  {
    "id": "scrap",
    "kind": "theme",
    "name": "Scrapbook",

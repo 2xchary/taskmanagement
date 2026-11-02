@@ -166,7 +166,31 @@ const SCRAP = {
   delete:       [{ freq: 420, to: 180, dur: .14, gain: .17, ...S }],
 }
 
-const PACKS = { clay: CLAY, brutal: BRUTAL, wabi: WABI, cyber: CYBER, scrap: SCRAP, phantom: PHANTOM }
+// Nostalgic Menu: soft, round, friendly blips and little bell chimes, bright but never sharp.
+const N = { type: 'sine', lp: 5200 }
+const NT = { type: 'triangle', lp: 4200 }
+const NOSTALGIC = {
+  hover:        [{ freq: 1320, dur: .03, gain: .035, ...N }],
+  press:        [{ freq: 520, to: 780, dur: .08, gain: .17, ...NT }, { freq: 1560, dur: .05, at: .02, gain: .05, ...N }],
+  open:         [{ freq: 600, to: 900, dur: .12, gain: .15, ...NT }],
+  close:        [{ freq: 900, to: 560, dur: .12, gain: .14, ...NT }],
+  check:        seq([784, 1047], .07, .1, .16, N),
+  uncheck:      [{ freq: 700, to: 520, dur: .09, gain: .14, ...NT }],
+  success:      seq([523, 659, 784, 1047], .08, .16, .15, N),
+  celebrate:    seq([523, 659, 784, 1047, 1319, 1568], .08, .22, .15, N),
+  achievement:  seq([523, 659, 784, 1047], .09, .24, .15, N),
+  info:         seq([988, 1319], .09, .14, .13, N),
+  notification: seq([1047, 1319, 1568], .09, .16, .14, N),
+  start:        [{ freq: 440, to: 880, dur: .18, gain: .14, ...NT }],
+  stop:         [{ freq: 880, to: 440, dur: .18, gain: .14, ...NT }],
+  complete:     seq([659, 784, 1047], .09, .18, .14, N),
+  intro:        seq([392, 523, 659, 784, 1047], .12, .3, .13, N),
+  error:        [{ freq: 330, to: 260, dur: .16, gain: .16, ...NT }, { freq: 260, to: 220, dur: .18, at: .12, gain: .14, ...NT }],
+  send:         [{ freq: 600, to: 1200, dur: .1, gain: .14, ...NT }],
+  delete:       [{ freq: 700, to: 200, dur: .16, gain: .14, ...NT }],
+}
+
+const PACKS = { clay: CLAY, brutal: BRUTAL, wabi: WABI, cyber: CYBER, scrap: SCRAP, phantom: PHANTOM, nostalgic: NOSTALGIC }
 export const isStylePack = id => id in PACKS
 
 export function playStyle(pack, cue, volume = .85) {
