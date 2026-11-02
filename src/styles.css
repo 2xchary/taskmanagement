@@ -5267,23 +5267,34 @@ button.feed-section-head .caret { flex: none; }
 /* ---- the page: soft white-to-sky glow with 12 faint shapes drifting slowly (transform and opacity only) ---- */
 :root[data-theme='nostalgic'] .scene { background: radial-gradient(circle at 50% 34%, #ffffff, var(--nm-bg2) 62%, var(--nm-bg3) 100%); }
 :root[data-theme='nostalgic'] .scene .g1, :root[data-theme='nostalgic'] .scene .g2 { display: none; }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(n+13) { display: none; }
+:root[data-theme='nostalgic'] .scene { perspective: 1100px; perspective-origin: 50% 38%; }
+/* each shape is a small stack of three layers (the sides get darker towards the back) that tumbles through 3D space */
 :root[data-theme='nostalgic'] .scene span {
-  --c: var(--nm-s1); --s: 110px; --dx: 5vw; --dy: -6vh; --rot: 40deg;
-  left: var(--x); top: var(--y); width: var(--s); height: var(--s); opacity: .85; filter: blur(3px);
-  background: linear-gradient(150deg, color-mix(in srgb, var(--c) 46%, transparent), color-mix(in srgb, var(--c) 22%, transparent)); border: 0; border-radius: 0; box-shadow: none;
-  animation: nm-drift 52s ease-in-out calc(var(--i) * -5s) infinite alternate;
+  --c: var(--nm-s1); --s: 84px;
+  --dx: calc(var(--i) * 1.7vw - 18vw); --dy: calc(var(--i) * -1.4vh + 14vh); --dz: calc(var(--i) * 8px - 90px);
+  --rx0: calc(var(--i) * 5deg - 55deg); --rx1: calc(var(--i) * -4deg + 50deg); --ry0: calc(var(--i) * -6deg + 60deg); --ry1: calc(var(--i) * 5deg - 55deg); --rz: calc(var(--i) * 4deg - 45deg);
+  left: var(--x); top: var(--y); width: var(--s); height: var(--s); transform-style: preserve-3d;
+  animation: nm-drift calc(24s + var(--i) * 1.1s) ease-in-out calc(var(--i) * -3s) infinite alternate;
 }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(3n+2) { --c: var(--nm-s2); --s: 150px; --dx: -4vw; --dy: 5vh; --rot: -50deg; animation-duration: 64s; }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(3n) { --c: var(--nm-s3); --s: 190px; --dx: 3vw; --dy: 7vh; --rot: 70deg; animation-duration: 76s; }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+1) { border-radius: 50%; }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+2) { border-radius: 50%; background: none; border: 14px solid color-mix(in srgb, var(--c) 40%, transparent); }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+3) { clip-path: polygon(50% 8%, 96% 90%, 4% 90%); }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+4) { border-radius: 26%; }
-:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+5) { background: linear-gradient(color-mix(in srgb, var(--c) 42%, transparent), color-mix(in srgb, var(--c) 42%, transparent)) center / 100% 26% no-repeat, linear-gradient(color-mix(in srgb, var(--c) 42%, transparent), color-mix(in srgb, var(--c) 42%, transparent)) center / 26% 100% no-repeat; }
-@keyframes nm-drift { to { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rot)); } }
-@media (prefers-reduced-motion: reduce) { :root[data-theme='nostalgic'] .scene span { animation: none; } :root[data-theme='nostalgic'] .page > * { animation: none; } }
-:root[data-theme='nostalgic'][data-motion='reduced'] .scene span, :root[data-theme='nostalgic'][data-motion='reduced'] .page > * { animation: none; }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(2n) { --dx: calc(var(--i) * -1.5vw + 16vw); --dy: calc(var(--i) * 1.3vh - 14vh); --rz: calc(var(--i) * -3deg + 40deg); }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(3n+2) { --c: var(--nm-s2); --s: 112px; }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(3n) { --c: var(--nm-s3); --s: 144px; }
+:root[data-theme='nostalgic'] .scene span > i { position: absolute; inset: 0; display: block; border-radius: 0; background: none; border: 0; }
+:root[data-theme='nostalgic'] .scene span > i:nth-child(1) { transform: translateZ(-26px); --fill: color-mix(in srgb, color-mix(in srgb, var(--c) 58%, #3a5f92) 34%, transparent); }
+:root[data-theme='nostalgic'] .scene span > i:nth-child(2) { transform: translateZ(-13px); --fill: color-mix(in srgb, color-mix(in srgb, var(--c) 72%, #3a5f92) 38%, transparent); }
+:root[data-theme='nostalgic'] .scene span > i:nth-child(3) { transform: translateZ(0); --fill: color-mix(in srgb, color-mix(in srgb, var(--c) 78%, #ffffff) 44%, transparent); }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+1) > i { border-radius: 50%; background: var(--fill); }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+2) > i { border-radius: 50%; border: 14px solid var(--fill); }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+3) > i { clip-path: polygon(50% 8%, 96% 90%, 4% 90%); background: var(--fill); }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+4) > i { border-radius: 26%; background: var(--fill); }
+:root[data-theme='nostalgic'] .scene span:nth-of-type(5n+5) > i { background: linear-gradient(var(--fill), var(--fill)) center / 100% 26% no-repeat, linear-gradient(var(--fill), var(--fill)) center / 26% 100% no-repeat; }
+@keyframes nm-drift {
+  from { transform: translate3d(0, 0, 0) rotateX(var(--rx0)) rotateY(var(--ry0)) rotateZ(0deg); }
+  to { transform: translate3d(var(--dx), var(--dy), var(--dz)) rotateX(var(--rx1)) rotateY(var(--ry1)) rotateZ(var(--rz)); }
+}
+@media (prefers-reduced-motion: reduce) { :root[data-theme='nostalgic'] .scene span { animation: none; transform: rotateX(var(--rx0)) rotateY(var(--ry0)); } :root[data-theme='nostalgic'] .page > * { animation: none; } :root[data-theme='nostalgic'] .dock, :root[data-theme='nostalgic'] .dock a .i3d { animation: none; } }
+:root[data-theme='nostalgic'][data-motion='reduced'] .scene span { animation: none; transform: rotateX(var(--rx0)) rotateY(var(--ry0)); }
+:root[data-theme='nostalgic'][data-motion='reduced'] .page > *, :root[data-theme='nostalgic'][data-motion='reduced'] .dock, :root[data-theme='nostalgic'][data-motion='reduced'] .dock a .i3d { animation: none; }
 /* screens ease in */
 :root[data-theme='nostalgic'] .page > * { animation: nm-enter .45s cubic-bezier(.34, 1.5, .5, 1) backwards; }
 @keyframes nm-enter { from { opacity: 0; transform: translateY(18px) scale(.985); } }
@@ -5409,6 +5420,15 @@ button.feed-section-head .caret { flex: none; }
 .sp.sp[data-pack='nostalgic'] .sp-prog { border-color: var(--edge); background: var(--glass-inner); }
 .sp.sp[data-pack='nostalgic'] .sp-chips span { border-color: var(--edge); }
 
+/* ---- leaderboard podium: each column is a 3D block with a top face and a side face ---- */
+:root[data-theme='nostalgic'] .lb-podium { flex: none; gap: 1.1rem; margin-right: 16px; margin-top: 1rem; }
+:root[data-theme='nostalgic'] .lb-spot { position: relative; overflow: visible; border-radius: 6px 6px 0 0; --top: color-mix(in srgb, var(--accent) 22%, #ffffff); --side: color-mix(in srgb, var(--accent) 66%, #4a6a96); }
+:root[data-theme='nostalgic'] .lb-spot.place-1 { --top: #fbeaa6; --side: #b8872a; }
+:root[data-theme='nostalgic'] .lb-spot::before { content: ''; position: absolute; left: 0; right: -14px; top: -12px; height: 12px; background: var(--top); clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%); pointer-events: none; }
+:root[data-theme='nostalgic'] .lb-spot::after { content: ''; position: absolute; right: -14px; top: -12px; bottom: 0; width: 14px; background: var(--side); clip-path: polygon(0 12px, 100% 0, 100% calc(100% - 12px), 0 100%); pointer-events: none; }
+:root[data-theme='nostalgic'] .lb-step { border-radius: 4px 4px 0 0; background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 60%, #ffffff), var(--accent)); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .65); }
+:root[data-theme='nostalgic'] .lb-spot.place-1 .lb-step { background: linear-gradient(180deg, #f9dc7c, #d8a92a); }
+
 /* ---- 3D icons on the shelf: extruded blocks. The open page's icon turns slowly; the rest stand still, a little turned ---- */
 .i3d { display: block; position: relative; width: 56px; height: 56px; perspective: 620px; }
 .i3d-in { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-24deg); transition: transform .5s cubic-bezier(.34, 1.5, .5, 1); }
@@ -5419,7 +5439,15 @@ button.feed-section-head .caret { flex: none; }
   background: linear-gradient(180deg, rgba(255, 255, 255, .96), rgba(232, 243, 252, .9)); box-shadow: inset 0 1px 0 #ffffff, inset 0 -3px 0 color-mix(in srgb, var(--accent) 14%, transparent); }
 .i3d-front .icon { stroke-width: 2.1; }
 :root[data-theme='nostalgic'] .dock a.active .i3d-front { background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 62%, #fff), var(--accent)); color: #ffffff; }
-:root[data-theme='nostalgic'] .dock a.active .i3d-in, :root[data-theme='nostalgic'] .dock a:hover .i3d-in, :root[data-theme='nostalgic'] .dock a:focus-visible .i3d-in { animation: i3d-turn 9s ease-in-out infinite alternate; }
-@keyframes i3d-turn { from { transform: rotateY(-36deg); } to { transform: rotateY(36deg); } }
+:root[data-theme='nostalgic'] .dock-wrap { padding-left: 14px; }
+:root[data-theme='nostalgic'] .dock { box-shadow: 0 28px 46px rgba(50, 90, 140, .24), 0 8px 16px rgba(50, 90, 140, .12); animation: nm-float 5.5s ease-in-out infinite alternate; }
+@keyframes nm-float { from { transform: translateY(-9px); } to { transform: translateY(9px); } }
+:root[data-theme='nostalgic'] .dock a .i3d { animation: i3d-bob 3.8s ease-in-out infinite alternate; }
+@keyframes i3d-bob { from { transform: translateY(-2px); } to { transform: translateY(3px); } }
+:root[data-theme='nostalgic'] .dock a .i3d-in { animation: i3d-turn 5.6s ease-in-out infinite alternate; }
+:root[data-theme='nostalgic'] .dock a:nth-child(2) .i3d-in { animation-delay: -1.4s; } :root[data-theme='nostalgic'] .dock a:nth-child(3) .i3d-in { animation-delay: -2.8s; }
+:root[data-theme='nostalgic'] .dock a:nth-child(4) .i3d-in { animation-delay: -4.2s; } :root[data-theme='nostalgic'] .dock a:nth-child(5) .i3d-in { animation-delay: -1.9s; }
+:root[data-theme='nostalgic'] .dock a:nth-child(even) .i3d { animation-delay: -1.9s; }
+@keyframes i3d-turn { from { transform: rotateY(-34deg); } to { transform: rotateY(34deg); } }
 @media (prefers-reduced-motion: reduce) { :root[data-theme='nostalgic'] .dock a .i3d-in { animation: none !important; transform: rotateY(-20deg); } }
 :root[data-theme='nostalgic'][data-motion='reduced'] .dock a .i3d-in { animation: none !important; transform: rotateY(-20deg); }
