@@ -41,6 +41,7 @@ import UpdateNotice from './components/UpdateNotice.jsx'
 import PipTimer from './components/PipTimer.jsx'
 import StillStudying from './components/StillStudying.jsx'
 import ShelfClock from './components/ShelfClock.jsx'
+import Icon3D from './components/Icon3D.jsx'
 import { useTheme } from './lib/theme.jsx'
 import StudyFlagAlert from './components/StudyFlags.jsx'
 import { publicUrl } from './lib/storage.js'
@@ -147,7 +148,7 @@ export default function App() {
             {TABS.map(t => (
               <NavLink key={t.to} to={t.to} end={t.end} data-label={t.label} aria-label={t.label}
                 className={({ isActive }) => tabClass(t, isActive)}>
-                {tabFace(t, t.profile ? 38 : 26)}
+                {theme === 'nostalgic' ? <Icon3D>{tabFace(t, t.profile ? 30 : 24)}</Icon3D> : tabFace(t, t.profile ? 38 : 26)}
               </NavLink>
             ))}
             {theme === 'nostalgic' && <ShelfClock />}
