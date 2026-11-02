@@ -5262,7 +5262,7 @@ button.feed-section-head .caret { flex: none; }
   --font: 'Nunito', system-ui, sans-serif; --font-head: 'Nunito', system-ui, sans-serif; --head-weight: 900; --head-scale: 1;
   --card-shape: 30px; --tile-shape: 22px; --btn-shape: 999px; --field-shape: 18px; --dock-shape: 50%;
   --accent: #1a6db8; --accent-2: #0e7f86; --edge: #6f89a6; --glass-inner: rgba(236, 244, 251, .6); --sky-1: #cfe3f5; --sky-2: #eaf1f8;
-  --nm-s1: #4f95d6; --nm-s2: #46a8c4; --nm-s3: #6aa6e0; --nm-bg2: #e4eef9; --nm-bg3: #cde0f3; --nm-tint: rgba(88, 150, 214, .16);
+  --nm-s1: #4f95d6; --nm-s2: #46a8c4; --nm-s3: #6aa6e0; --nm-bg2: #e4eef9; --nm-bg3: #cde0f3; --nm-tint: rgba(88, 150, 214, .16); --nm-ledge: rgba(120, 160, 205, .42);
 }
 /* ---- the page: soft white-to-sky glow with 12 faint shapes drifting slowly (transform and opacity only) ---- */
 :root[data-theme='nostalgic'] .scene { background: radial-gradient(circle at 50% 34%, #ffffff, var(--nm-bg2) 62%, var(--nm-bg3) 100%); }
@@ -5307,7 +5307,7 @@ button.feed-section-head .caret { flex: none; }
 /* ---- glass cards: flat (no blur on big areas), soft shadow, big corners ---- */
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.card, .profile-head) {
   background: var(--glass); border: 1px solid rgba(255, 255, 255, .95); border-radius: 30px;
-  box-shadow: 0 10px 34px rgba(60, 100, 150, .16), inset 0 -5px 0 var(--nm-tint);
+  box-shadow: 0 7px 0 var(--nm-ledge), 0 16px 34px rgba(60, 100, 150, .16), inset 0 0 0 1px rgba(255, 255, 255, .9), inset 0 -5px 0 var(--nm-tint);
   -webkit-backdrop-filter: none; backdrop-filter: none;
 }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) h1:not(:has(.fancy-name)) {
@@ -5321,9 +5321,11 @@ button.feed-section-head .caret { flex: none; }
 /* ---- buttons: primary = solid accent, secondary = the capsule ---- */
 :root[data-theme='nostalgic'] button:not(.link):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab):not(.settings-btn):not(.mail-btn):not(.help-btn):not(.worked-btn):not(.flag-banner):not(.still-yes):not(.picker-close):not(.swatch):not(.seg-btn):not(.pip-btn):not(.tabs button):not(.seg button):not(.secondary) {
   background: color-mix(in srgb, var(--accent) 86%, transparent); color: #ffffff; border: 1px solid rgba(255, 255, 255, .35); border-radius: 30px; font-weight: 800; letter-spacing: .01em;
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 42%, transparent);
+  box-shadow: 0 6px 0 color-mix(in srgb, color-mix(in srgb, var(--accent) 52%, #0b2447) 62%, transparent), 0 14px 22px color-mix(in srgb, var(--accent) 34%, transparent), inset 0 2px 0 rgba(255, 255, 255, .55), inset 0 -3px 0 rgba(0, 0, 0, .1);
+  transition: transform .18s cubic-bezier(.34, 1.5, .5, 1), box-shadow .18s;
 }
-:root[data-theme='nostalgic'] button:not(.link):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab):not(.settings-btn):not(.mail-btn):not(.help-btn):not(.worked-btn):not(.flag-banner):not(.still-yes):not(.picker-close):not(.swatch):not(.seg-btn):not(.pip-btn):not(.tabs button):not(.seg button):not(.secondary):hover:not(:disabled) { filter: brightness(1.08); }
+:root[data-theme='nostalgic'] button:not(.link):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab):not(.settings-btn):not(.mail-btn):not(.help-btn):not(.worked-btn):not(.flag-banner):not(.still-yes):not(.picker-close):not(.swatch):not(.seg-btn):not(.pip-btn):not(.tabs button):not(.seg button):not(.secondary):hover:not(:disabled) { filter: none; transform: translateY(-2px); box-shadow: 0 8px 0 color-mix(in srgb, color-mix(in srgb, var(--accent) 52%, #0b2447) 62%, transparent), 0 18px 26px color-mix(in srgb, var(--accent) 34%, transparent), inset 0 2px 0 rgba(255, 255, 255, .6), inset 0 -3px 0 rgba(0, 0, 0, .1); }
+:root[data-theme='nostalgic'] button:not(.link):not(.customize-row):not(.style-opt):not(.theme-opt):not(.week-chip):not(.task-main):not(.sound-chip):not(.wd-day):not(.mini-day):not(.ahead-btn):not(.rp-day):not(.shop-tab):not(.settings-btn):not(.mail-btn):not(.help-btn):not(.worked-btn):not(.flag-banner):not(.still-yes):not(.picker-close):not(.swatch):not(.seg-btn):not(.pip-btn):not(.tabs button):not(.seg button):not(.secondary):active:not(:disabled) { transform: translateY(5px); box-shadow: 0 1px 0 color-mix(in srgb, color-mix(in srgb, var(--accent) 52%, #0b2447) 62%, transparent), 0 4px 8px color-mix(in srgb, var(--accent) 30%, transparent), inset 0 2px 0 rgba(255, 255, 255, .4); }
 :root[data-theme='nostalgic'] button:focus-visible { outline: 4px solid var(--accent); outline-offset: 2px; }
 /* every button is frosted: the shapes and glow behind it are blurred through it */
 :root[data-theme='nostalgic'] button:not(.link):not(.task-main):not(.swatch):not(.picker-close) { -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4); }
@@ -5332,25 +5334,25 @@ button.feed-section-head .caret { flex: none; }
   min-height: 46px; padding: .35rem 1.3rem .35rem .45rem; border-radius: 999px; font-weight: 800; color: var(--text); font-size: 1rem;
   background: linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(238, 245, 252, .46));
   border: 1px solid rgba(255, 255, 255, .95); outline: 2px solid var(--edge); outline-offset: -2px;
-  box-shadow: 0 6px 20px rgba(30, 80, 130, .2), inset 0 -3px 0 color-mix(in srgb, var(--accent) 14%, transparent);
+  box-shadow: 0 6px 0 var(--nm-ledge), 0 14px 22px rgba(30, 80, 130, .18), inset 0 2px 0 rgba(255, 255, 255, .9), inset 0 -3px 0 color-mix(in srgb, var(--accent) 14%, transparent);
   -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4);
   transition: transform .18s cubic-bezier(.34, 1.5, .5, 1), box-shadow .2s;
 }
 :root[data-theme='nostalgic'] button.secondary:not([aria-label])::before {
   content: ''; flex: none; width: 1.7em; height: 1.7em; border-radius: 50%;
-  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 62%, #fff), var(--accent));
+  background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, .85) 0 11%, transparent 12%), linear-gradient(145deg, color-mix(in srgb, var(--accent) 62%, #fff), var(--accent));
   box-shadow: 0 3px 10px color-mix(in srgb, var(--accent) 45%, transparent), inset 0 1px 0 rgba(255, 255, 255, .55);
 }
 :root[data-theme='nostalgic'] button.secondary[aria-label] { padding: .35rem .9rem; }
-:root[data-theme='nostalgic'] button.secondary:hover:not(:disabled) { transform: translateY(-3px); scale: 1; filter: none; background: linear-gradient(180deg, rgba(255, 255, 255, .86), rgba(242, 248, 253, .74)); box-shadow: 0 10px 26px rgba(30, 80, 130, .28), 0 0 0 3px var(--accent); }
-:root[data-theme='nostalgic'] button.secondary:active:not(:disabled) { transform: scale(.95); }
+:root[data-theme='nostalgic'] button.secondary:hover:not(:disabled) { transform: translateY(-3px); scale: 1; filter: none; background: linear-gradient(180deg, rgba(255, 255, 255, .86), rgba(242, 248, 253, .74)); box-shadow: 0 8px 0 var(--nm-ledge), 0 18px 28px rgba(30, 80, 130, .26), 0 0 0 3px var(--accent); }
+:root[data-theme='nostalgic'] button.secondary:active:not(:disabled) { transform: translateY(5px); box-shadow: 0 1px 0 var(--nm-ledge), 0 4px 8px rgba(30, 80, 130, .2), 0 0 0 3px var(--accent); }
 :root[data-theme='nostalgic'] button.secondary:focus-visible { outline: 4px solid var(--accent); outline-offset: 2px; }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) button:disabled { opacity: .55; }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.settings-btn, .mail-btn, .help-btn) {
   width: 44px; height: 44px; padding: 0; display: inline-grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, .6); -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4); color: var(--accent);
-  border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; box-shadow: 0 6px 18px rgba(30, 80, 130, .2);
+  border: 1px solid #ffffff; outline: 2px solid var(--edge); outline-offset: -2px; box-shadow: 0 5px 0 var(--nm-ledge), 0 12px 18px rgba(30, 80, 130, .18), inset 0 2px 0 rgba(255, 255, 255, .9);
 }
-:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.settings-btn, .mail-btn, .help-btn):hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(30, 80, 130, .28), 0 0 0 3px var(--accent); }
+:is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.settings-btn, .mail-btn, .help-btn):hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 7px 0 var(--nm-ledge), 0 16px 22px rgba(30, 80, 130, .26), 0 0 0 3px var(--accent); }
 :is(:root[data-theme='nostalgic'], .sp[data-pack='nostalgic']) :is(.settings-btn, .mail-btn, .help-btn):focus-visible { outline: 4px solid var(--accent); outline-offset: 2px; }
 
 /* ---- fields ---- */
@@ -5380,11 +5382,15 @@ button.feed-section-head .caret { flex: none; }
 :root[data-theme='nostalgic'] .shelf-clock strong { font-size: 1rem; font-weight: 900; white-space: nowrap; }
 :root[data-theme='nostalgic'] .shelf-clock small { color: var(--muted); font-weight: 700; font-size: .66rem; white-space: nowrap; }
 @media (max-width: 700px) {
-  :root[data-theme='nostalgic'] .tabbar .liquid { display: none; }
+  :root[data-theme='nostalgic'] .liquid { filter: none; }
+  :root[data-theme='nostalgic'] .liquid::before { display: none; }
+  :root[data-theme='nostalgic'] .blob::before { width: 60px; height: 52px; border-radius: 22px; background: radial-gradient(circle at 28% 20%, rgba(255, 255, 255, .7) 0 9%, transparent 10%), linear-gradient(145deg, color-mix(in srgb, var(--accent) 62%, #fff), var(--accent));
+    box-shadow: 0 5px 0 color-mix(in srgb, color-mix(in srgb, var(--accent) 52%, #0b2447) 62%, transparent), 0 10px 16px color-mix(in srgb, var(--accent) 35%, transparent), inset 0 2px 0 rgba(255, 255, 255, .55); }
+  :root[data-theme='nostalgic'] .blob.trail::before { width: 70px; height: 60px; border-radius: 26px; background: none; border: 3px solid color-mix(in srgb, var(--accent) 45%, transparent); box-shadow: none; }
   :root[data-theme='nostalgic'] .tabbar { background: rgba(255, 255, 255, .62); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); border: 1px solid rgba(255, 255, 255, .85); outline: 2px solid var(--edge); outline-offset: -2px; border-radius: 36px 36px 28px 28px / 28px 28px 28px 28px; box-shadow: 0 10px 34px rgba(60, 100, 150, .22); }
   :root[data-theme='nostalgic'] .tabbar a { color: var(--muted); text-shadow: none; font-weight: 800; }
   :root[data-theme='nostalgic'] .tabbar a .icon { filter: none; }
-  :root[data-theme='nostalgic'] .tabbar a.active { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, #ffffff); border-radius: 24px; margin: 6px 2px; height: 58px; padding-top: 7px; }
+  :root[data-theme='nostalgic'] .tabbar a.active { color: #ffffff; }
 }
 
 /* ---- the miniature in the picker keeps this look even when another pack is the page's look ---- */
@@ -5398,21 +5404,21 @@ button.feed-section-head .caret { flex: none; }
   --font: 'Nunito', system-ui, sans-serif; --font-head: 'Nunito', system-ui, sans-serif; --head-weight: 900; --head-scale: 1;
   --card-shape: 30px; --tile-shape: 22px; --btn-shape: 999px; --field-shape: 18px; --dock-shape: 50%;
   --accent: #1a6db8; --accent-2: #0e7f86; --edge: #6f89a6; --glass-inner: rgba(236, 244, 251, .6); --sky-1: #cfe3f5; --sky-2: #eaf1f8;
-  --nm-s1: #4f95d6; --nm-s2: #46a8c4; --nm-s3: #6aa6e0; --nm-bg2: #e4eef9; --nm-bg3: #cde0f3; --nm-tint: rgba(88, 150, 214, .16);
+  --nm-s1: #4f95d6; --nm-s2: #46a8c4; --nm-s3: #6aa6e0; --nm-bg2: #e4eef9; --nm-bg3: #cde0f3; --nm-tint: rgba(88, 150, 214, .16); --nm-ledge: rgba(120, 160, 205, .42);
 }
 :is(:root[data-theme='nostalgic'][data-accent='red'], .sp[data-pack='nostalgic'][data-accent='red']) {
   --accent: #c0262d; --accent-2: #d9622b; --edge: #a37a80; --glass-inner: rgba(253, 238, 238, .62); --sky-1: #f7d6d8; --sky-2: #fcf0f0;
-  --nm-s1: #e8777c; --nm-s2: #f0a07a; --nm-s3: #e6828f; --nm-bg2: #fbecec; --nm-bg3: #f3d3d5; --nm-tint: rgba(214, 88, 98, .16);
+  --nm-s1: #e8777c; --nm-s2: #f0a07a; --nm-s3: #e6828f; --nm-bg2: #fbecec; --nm-bg3: #f3d3d5; --nm-tint: rgba(214, 88, 98, .16); --nm-ledge: rgba(205, 128, 134, .42);
 }
 :is(:root[data-theme='nostalgic'][data-accent='yellow'], .sp[data-pack='nostalgic'][data-accent='yellow']) {
   --accent: #9c6200; --accent-2: #c98a00; --edge: #a08a58; --glass-inner: rgba(253, 246, 226, .64); --sky-1: #f8e9bd; --sky-2: #fdf6e0;
-  --nm-s1: #f2c230; --nm-s2: #f5d663; --nm-s3: #eaa94a; --nm-bg2: #fdf4dc; --nm-bg3: #f4e2b0; --nm-tint: rgba(214, 170, 40, .2);
+  --nm-s1: #f2c230; --nm-s2: #f5d663; --nm-s3: #eaa94a; --nm-bg2: #fdf4dc; --nm-bg3: #f4e2b0; --nm-tint: rgba(214, 170, 40, .2); --nm-ledge: rgba(205, 165, 85, .45);
 }
 :is(:root[data-theme='nostalgic'][data-accent='green'], .sp[data-pack='nostalgic'][data-accent='green']) {
   --accent: #17703a; --accent-2: #1f8a8a; --edge: #6f9a82; --glass-inner: rgba(236, 248, 241, .62); --sky-1: #cdeadb; --sky-2: #eaf6ef;
-  --nm-s1: #5cb97f; --nm-s2: #46b3a0; --nm-s3: #8ccf9a; --nm-bg2: #e6f5ec; --nm-bg3: #cfe9da; --nm-tint: rgba(70, 170, 110, .18);
+  --nm-s1: #5cb97f; --nm-s2: #46b3a0; --nm-s3: #8ccf9a; --nm-bg2: #e6f5ec; --nm-bg3: #cfe9da; --nm-tint: rgba(70, 170, 110, .18); --nm-ledge: rgba(105, 172, 138, .42);
 }
-.sp.sp[data-pack='nostalgic'] .card { background: var(--glass); border: 1px solid #ffffff; border-radius: 30px; box-shadow: 0 10px 34px rgba(60, 100, 150, .14); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.sp.sp[data-pack='nostalgic'] .card { background: var(--glass); border: 1px solid #ffffff; border-radius: 30px; box-shadow: 0 6px 0 var(--nm-ledge), 0 14px 30px rgba(60, 100, 150, .14), inset 0 0 0 1px rgba(255, 255, 255, .9); -webkit-backdrop-filter: none; backdrop-filter: none; }
 /* undo anything another pack's page styles leak into the miniature (frames, tape, slanted tags, rotated buttons) */
 .sp.sp[data-pack='nostalgic'] .card::before, .sp.sp[data-pack='nostalgic'] .card::after, .sp.sp[data-pack='nostalgic'] button::after { content: none; }
 .sp.sp[data-pack='nostalgic'] .card { position: relative; isolation: auto; transform: none; rotate: none; translate: none; clip-path: none; filter: none; outline: none; margin: 0; }
