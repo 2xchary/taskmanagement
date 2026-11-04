@@ -189,7 +189,9 @@ export function PomodoroProvider({ children }) {
     const today = dayKey(new Date(t))
     if (state.day === today) return
     const dayEnd = endOfDay(state.day)
-    const ms = state.accMs + (state.startedAt ? Math.max(0, Math.min(t, dayEnd.getTime() + 60000) - state.startedAt) : 0)
+    const rawMs = state.accMs + (state.startedAt ? Math.max(0, Math.min(t, dayEnd.getTime() + 60000) - state.startedAt) : 0)
+    // never save more than the last check-in + 5 h + the 1 h grace for a clock nobody confirmed
+    const ms = state.startedAt ? Math.min(rawMs, (state.verifiedMs ?? 0) + STILL_AFTER_MS + STILL_GRACE_MS) : rawMs
     const minutes = Math.floor(ms / 60000)
     const running = !!state.startedAt
     const unconfirmed = ms - (state.verifiedMs ?? 0) >= STILL_AFTER_MS      // a long stretch nobody checked in on
@@ -207,15 +209,17 @@ export function PomodoroProvider({ children }) {
   async function expireStill(s, total) {
     expiring.current = true
     try {
-      const minutes = Math.floor(total / 60000)
-      // nobody is answering: stop the clock, save what it counted, and flag it
-      store({ day: s.day, accMs: total - minutes * 60000, startedAt: null })
+      // nobody is answering: stop the clock and save only up to the last check-in + 5 h + the 1 h grace.
+      // Anything after that (phone asleep, app closed) never happened as far as the clock can tell.
+      const capped = Math.min(total, s.verifiedMs + STILL_AFTER_MS + STILL_GRACE_MS)
+      const minutes = Math.floor(capped / 60000)
+      store({ day: s.day, accMs: capped - minutes * 60000, startedAt: null, askedAt: null })
       const ids = await logMinutes(minutes)
       if (ids) {
         await flagStudy(ids, Math.min(minutes, MAX_DAY_MIN), s.verifiedMs + STILL_AFTER_MS)
         toast(`Nobody answered "Still studying?", so ${Math.min(minutes, MAX_DAY_MIN)} min were saved and sent to the admin to review.`, 'info')
       } else {
-        store({ day: s.day, accMs: total, startedAt: null, verifiedMs: total })      // could not save: keep the time, stopped
+        store({ day: s.day, accMs: capped, startedAt: null, verifiedMs: capped })      // could not save: keep the time, stopped
       }
     } finally { expiring.current = false }
   }
