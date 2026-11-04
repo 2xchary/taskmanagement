@@ -76,7 +76,19 @@ function useMail() {
   }, [notifs])
   const popup = items.find(a => a.major && !closed.includes(a.id)) ?? null
   const closePopup = id => { const next = [...closed, id]; setClosed(next); writeList(POP_KEY, next) }
-  return { items, notifs, unreadNotifs, unread, markRead, markNotifsRead, loadNotifs, popup, closePopup }
+  // the admin's decision on a study clock that may have been left on: shown once as a pop-up until closed
+  const checkPopup = notifs.find(n => n.kind === 'study_check' && !n.read && !closed.includes(n.id)) ?? null
+  return { items, notifs, unreadNotifs, unread, markRead, markNotifsRead, loadNotifs, popup, closePopup, checkPopup }
+}
+
+const fmtMin = m => { const h = Math.floor(m / 60), r = m % 60; return h ? (r ? `${h}h ${r}m` : `${h}h`) : `${r}m` }
+// detail is 'keep|claimed|final', 'void|claimed|0' or 'adjust|claimed|final'
+function studyCheckText(detail) {
+  const [how, c, f] = String(detail ?? '').split('|')
+  const claimed = Number(c) || 0, final = Number(f) || 0
+  if (how === 'keep') return { title: 'Your study time was kept', body: `Your study clock ran for a long stretch (${fmtMin(claimed)}), so the admin checked it. They kept all of it. Nothing changed.` }
+  if (how === 'void') return { title: 'Your study time was removed', body: `Your study clock ran for a long stretch (${fmtMin(claimed)}), so the admin checked it. They decided it was left running, so those ${fmtMin(claimed)} were removed.` }
+  return { title: 'Your study time was changed', body: `Your study clock ran for a long stretch (${fmtMin(claimed)}), so the admin checked it. They changed it to ${fmtMin(final)}, which is what you actually studied.` }
 }
 
 // "Sam commented on your post", "Priya, Alex and 2 others reacted to your post"
@@ -90,6 +102,7 @@ function describe(g, nameOf) {
     case 'reaction': return { icon: '❤️', text: `${names} reacted to your post` }
     case 'mention_post': return { icon: '🏷️', text: `${names} tagged you in a post` }
     case 'mention_comment': return { icon: '🏷️', text: `${names} tagged you in a comment` }
+    case 'study_check': return { icon: '⏱️', text: studyCheckText(g.detail).title }
     default: return { icon: '🔔', text: names }
   }
 }
@@ -172,6 +185,18 @@ export default function MailButton() {
               {groups.map(g => {
                 const d = describe(g, nameOf)
                 const isFresh = g.ids.some(id => fresh.has(id))
+                if (g.kind === 'study_check') {
+                  return (
+                    <div key={g.key} className={'notif-item' + (isFresh ? ' fresh' : '')}>
+                      <span className="notif-icon" aria-hidden="true">{d.icon}</span>
+                      <span>
+                        <p>{d.text}</p>
+                        <p className="notif-snippet">{studyCheckText(g.detail).body}</p>
+                        <small className="muted">{ago(g.created_at)}</small>
+                      </span>
+                    </div>
+                  )
+                }
                 return (
                   <Link key={g.key} to={g.post_id ? '/feed?post=' + g.post_id : '/feed'} className={'notif-item' + (isFresh ? ' fresh' : '')} onClick={() => setOpen(false)}>
                     <span className="notif-icon" aria-hidden="true">{d.icon}</span>
@@ -220,7 +245,21 @@ export default function MailButton() {
         </PickerModal>
       )}
 
-      {mail.popup && !open && (
+      {mail.checkPopup && !open && (
+        <div className="modal-backdrop update-popup">
+          <div className="modal card stack" role="dialog" aria-modal="true" aria-label="Study time check">
+            <span className="mail-tag">Study time check</span>
+            <h2>{studyCheckText(mail.checkPopup.detail).title}</h2>
+            <p>{studyCheckText(mail.checkPopup.detail).body}</p>
+            <div className="row between">
+              <button type="button" onClick={() => { mail.closePopup(mail.checkPopup.id); mail.markNotifsRead() }}>Got it</button>
+            </div>
+            <small className="muted">You can read this again any time in your mail, under For you.</small>
+          </div>
+        </div>
+      )}
+
+      {mail.popup && !open && !mail.checkPopup && (
         <div className="modal-backdrop update-popup">
           <div className="modal card stack" role="dialog" aria-modal="true" aria-label="Big update">
             <span className="mail-tag">Big update</span>

@@ -280,6 +280,7 @@ const rpcs = {
     }
     db.study_sessions = db.study_sessions.filter(s => s.minutes > 0)
     Object.assign(f, { status: args.how === 'keep' ? 'kept' : args.how === 'void' || !args.true_minutes ? 'voided' : 'adjusted', final_minutes: args.how === 'keep' ? f.claimed_minutes : args.how === 'void' ? 0 : args.true_minutes, resolved_at: new Date().toISOString() })
+    db.notifications.unshift({ id: 'sc-' + Date.now(), user_id: f.user_id, actor_id: ME, kind: 'study_check', post_id: null, detail: `${args.how === 'keep' ? 'keep' : args.how === 'void' || !args.true_minutes ? 'void' : 'adjust'}|${f.claimed_minutes}|${f.final_minutes}`, read: false, created_at: new Date().toISOString() })
     save(); return null
   },
   admin_list_users: () => FAKE_PEOPLE(),

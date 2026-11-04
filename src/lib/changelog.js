@@ -3,6 +3,13 @@
 // { version, date: 'YYYY-MM-DD', title, points: [short bullet, ...] }
 export const CHANGELOG = [
   {
+    version: '2.58', date: '2026-11-04', title: 'Study time checks tell you the result',
+    points: [
+      'If the admin reviews a study clock that may have been left running, you now get a pop-up and a note in your mail saying what was decided: kept, changed to the real time, or removed.',
+      'A count-up clock nobody answers "Still studying?" for can no longer save more than 6 hours past your last check-in.',
+    ],
+  },
+  {
     version: '2.57', date: '2026-11-02', title: 'Nostalgic Menu style pack',
     points: [
       'A new Style pack in the Shop, 600 coins: a bright, soft game-menu look with frosted white glass, a gradient title, capsule buttons with a glossy coloured dot, a shelf bar with the clock along the bottom, shapes drifting slowly behind, and its own soft sounds.',
