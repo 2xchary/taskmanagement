@@ -84,8 +84,16 @@ function useMail() {
 const fmtMin = m => { const h = Math.floor(m / 60), r = m % 60; return h ? (r ? `${h}h ${r}m` : `${h}h`) : `${r}m` }
 // detail is 'keep|claimed|final', 'void|claimed|0' or 'adjust|claimed|final'
 function studyCheckText(detail) {
-  const [how, c, f] = String(detail ?? '').split('|')
-  const claimed = Number(c) || 0, final = Number(f) || 0
+  const [how, c, f, st, pr, rq] = String(detail ?? '').split('|')
+  const claimed = Number(c) || 0, final = Number(f) || 0, strike = Number(st) || 0, protectedTime = pr === '1', asked = Number(rq) || 0
+  const rule = 'Strikes last 30 days. After the third, a forgotten timer is cut in full, so please stop your timer when you are done.'
+  if (strike > 0 && protectedTime) {
+    return { title: `Strike ${strike} of 3: warning`, body: `Your study clock ran for a long stretch (${fmtMin(claimed)}) and the admin checked it. It looked like it was left running, and they wanted ${asked > 0 ? 'to cut it to ' + fmtMin(asked) : 'to remove it'}. Because this is only strike ${strike}, you keep ${fmtMin(final)} of it. ${rule}` }
+  }
+  if (strike > 0) {
+    const t = how === 'void' ? `Your study clock ran for a long stretch (${fmtMin(claimed)}) and the admin removed it.` : `Your study clock ran for a long stretch (${fmtMin(claimed)}) and the admin changed it to ${fmtMin(final)}.`
+    return { title: `Strike ${strike}: study time ${how === 'void' ? 'removed' : 'changed'}`, body: `${t} That is strike ${strike}. ${rule}` }
+  }
   if (how === 'keep') return { title: 'Your study time was kept', body: `Your study clock ran for a long stretch (${fmtMin(claimed)}), so the admin checked it. They kept all of it. Nothing changed.` }
   if (how === 'void') return { title: 'Your study time was removed', body: `Your study clock ran for a long stretch (${fmtMin(claimed)}), so the admin checked it. They decided it was left running, so those ${fmtMin(claimed)} were removed.` }
   return { title: 'Your study time was changed', body: `Your study clock ran for a long stretch (${fmtMin(claimed)}), so the admin checked it. They changed it to ${fmtMin(final)}, which is what you actually studied.` }

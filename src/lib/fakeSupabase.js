@@ -274,13 +274,20 @@ const rpcs = {
   admin_resolve_study_flag: args => {
     const f = (db.study_flags ?? []).find(x => x.id === args?.fid)
     if (!f || f.status !== 'open') return null
-    let left = args.how === 'keep' ? f.claimed_minutes : args.how === 'void' ? 0 : Math.max(0, args.true_minutes ?? 0)
+    const req = args.how === 'keep' ? f.claimed_minutes : args.how === 'void' ? 0 : Math.max(0, args.true_minutes ?? 0)
+    // strikes: cutting time is a strike; the first two protect the confirmed time
+    const prior = (db.study_flags ?? []).filter(x => x.user_id === f.user_id && x.strike > 0 && x.id !== f.id).length
+    const strike = req < f.claimed_minutes ? prior + 1 : 0
+    const prot = strike > 0 && strike <= 2 && f.verified_minutes > req
+    const final = prot ? Math.min(f.claimed_minutes, f.verified_minutes) : req
+    let left = final
     for (const s of db.study_sessions.filter(x => f.session_ids.includes(x.id)).sort((a, b) => a.created_at.localeCompare(b.created_at))) {
       const part = Math.min(s.minutes, left); s.minutes = part; left -= part
     }
     db.study_sessions = db.study_sessions.filter(s => s.minutes > 0)
-    Object.assign(f, { status: args.how === 'keep' ? 'kept' : args.how === 'void' || !args.true_minutes ? 'voided' : 'adjusted', final_minutes: args.how === 'keep' ? f.claimed_minutes : args.how === 'void' ? 0 : args.true_minutes, resolved_at: new Date().toISOString() })
-    db.notifications.unshift({ id: 'sc-' + Date.now(), user_id: f.user_id, actor_id: ME, kind: 'study_check', post_id: null, detail: `${args.how === 'keep' ? 'keep' : args.how === 'void' || !args.true_minutes ? 'void' : 'adjust'}|${f.claimed_minutes}|${f.final_minutes}`, read: false, created_at: new Date().toISOString() })
+    const outcome = final >= f.claimed_minutes ? 'keep' : final === 0 ? 'void' : 'adjust'
+    Object.assign(f, { strike, protected: prot, status: { keep: 'kept', void: 'voided', adjust: 'adjusted' }[outcome], final_minutes: final, resolved_at: new Date().toISOString() })
+    db.notifications.unshift({ id: 'sc-' + Date.now(), user_id: f.user_id, actor_id: ME, kind: 'study_check', post_id: null, detail: `${outcome}|${f.claimed_minutes}|${final}|${strike}|${prot ? 1 : 0}|${req}`, read: false, created_at: new Date().toISOString() })
     save(); return null
   },
   admin_list_users: () => FAKE_PEOPLE(),

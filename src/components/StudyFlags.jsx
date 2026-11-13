@@ -32,6 +32,15 @@ export function StudyFlagCard({ flag, onResolve }) {
         {!open && flag.final_minutes != null && <> Final: <b>{fmtMinutes(flag.final_minutes)}</b>.</>}
       </p>
       {open && (
+        <p className="small muted">
+          {flag.strikes > 0 ? `${flag.strikes} strike${flag.strikes === 1 ? '' : 's'} in the last 30 days. ` : 'No strikes in the last 30 days. '}
+          {(flag.strikes ?? 0) + 1 <= 2
+            ? `Cutting this is strike ${(flag.strikes ?? 0) + 1}, a warning: they still keep ${fmtMinutes(flag.verified_minutes)} (the confirmed time) even if you void it.`
+            : `Cutting this is strike ${(flag.strikes ?? 0) + 1}: your decision applies in full.`}
+        </p>
+      )}
+      {!open && flag.strike > 0 && <p className="small muted">Strike {flag.strike}{flag.protected ? ` (warning: ${fmtMinutes(flag.final_minutes)} protected)` : ''}.</p>}
+      {open && (
         <div className="study-flag-actions">
           <button type="button" disabled={busy} onClick={() => run('keep')} title="Leave the time exactly as saved">Keep it ({fmtMinutes(flag.claimed_minutes)})</button>
           <span className="row study-flag-true">

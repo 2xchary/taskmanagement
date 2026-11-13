@@ -3,6 +3,12 @@
 // { version, date: 'YYYY-MM-DD', title, points: [short bullet, ...] }
 export const CHANGELOG = [
   {
+    version: '2.59', date: '2026-11-13', title: 'Strikes for forgotten timers',
+    points: [
+      'If a count-up timer is left running and the admin cuts or removes the time, that is a strike. Strikes 1 and 2 are warnings: the time up to your last check-in plus 5 hours is kept. From the third strike (strikes last 30 days) the full cut applies, so remember to stop your timer.',
+    ],
+  },
+  {
     version: '2.58', date: '2026-11-04', title: 'Study time checks tell you the result',
     points: [
       'If the admin reviews a study clock that may have been left running, you now get a pop-up and a note in your mail saying what was decided: kept, changed to the real time, or removed.',
